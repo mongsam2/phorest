@@ -1,7 +1,9 @@
+import Ranking from './routers/Ranking';
+
 function App() {
   return (
     <div>
-      hello world
+      <Ranking />
     </div>
   );
 }

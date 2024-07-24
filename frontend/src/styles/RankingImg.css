@@ -1,0 +1,37 @@
+.rankingImg-wrap {
+    height: 700px;
+    width: 1920px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.rankingImg-box {
+    height: 316px;
+    width: 600px;
+    background-color: #D9D9D9;
+    position: relative;
+}
+
+.best-ranking {
+    height: 316px;
+    width: 600px;
+}
+
+
+.profile-img {
+    position: absolute;
+    top : 73%;
+    left: 8%;
+}
+
+
+.best-ranking-p {
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    font-size: 24px;
+    color: #FFFFFF;
+}
