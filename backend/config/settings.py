@@ -42,6 +42,14 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # apps
+    'backgrounds.apps.BackgroundsConfig',
+    'categories.apps.CategoriesConfig',
+    'categorytypes.apps.CategorytypesConfig',
+    'galleries.apps.GalleriesConfig',
+    'productimages.apps.ProductimagesConfig',
+    'products.apps.ProductsConfig',
+    'users.apps.UsersConfig',
+    'winners.apps.WinnersConfig',
 ]
 
 MIDDLEWARE = [
