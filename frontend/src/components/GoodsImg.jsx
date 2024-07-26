@@ -1,4 +1,4 @@
-import temporal from '../assets/ranking-animal-filter.svg';
+import temporal from '../assets/ranking-pet-filter.svg';
 import '../styles/GoodsImg.css';
 
 function GoodsImgBox({ index }) {

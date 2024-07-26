@@ -1,0 +1,24 @@
+.Goods-wrap {
+    height: 1080px;
+    width: 1920px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 150px;
+    margin-top: 50px;
+}
+
+.Goods-main-best {
+    height: 420px;
+}
+
+.Goods-main-goods {
+    height: 1000px;
+}
+
+.Goods-foot {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}

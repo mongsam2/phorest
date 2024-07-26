@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Helvetica Condensed Black Oblique";
+    font-weight: normal;
+    src: url("../font/Helvetica\ Condensed\ Black\ Oblique.ttf") format("truetype");
+  }
+
 .rankingImg-wrap {
     height: 700px;
     width: 1920px;
@@ -13,11 +19,29 @@
     width: 600px;
     background-color: #D9D9D9;
     position: relative;
+    border-radius: 10px;
+}
+
+.best-ranking-number {
+    position: absolute;
+    font-size: 104px;
+    color : #FFF;
+    z-index: 0;
+    top : -10%;
+    left : 5%;
+    text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.30);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 70px;
+    letter-spacing: -1px;
+    font-family: "Helvetica Condensed Black Oblique";
+
 }
 
 .best-ranking {
     height: 316px;
     width: 600px;
+    border-radius: 10px;
 }
 
 
@@ -32,6 +56,9 @@
     position: absolute;
     top: 70%;
     left: 20%;
-    font-size: 24px;
     color: #FFFFFF;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    
 }
