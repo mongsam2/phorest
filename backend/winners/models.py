@@ -13,4 +13,5 @@ class Winner(models.Model):
     
     def weekly_likes(self):
         start_date = self.win_date - timedelta(weeks=1)
+        # 일주일 동안 받은 좋아요 개수 계산
         return start_date
