@@ -1,1 +1,3 @@
 backend/myvenv
+backend/uploads
+backend/db.sqlite3
