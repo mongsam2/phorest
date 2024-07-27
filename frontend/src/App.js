@@ -1,15 +1,17 @@
-import Exhibition from "./routers/Gallery";
+import Gallery from "./routers/Gallery";
 import Ranking from "./routers/Ranking";
-import Goods from './routers/Goods';
+import Goods from "./routers/Goods";
+import Main from "./routers/Main";
 
-import './styles/App.css';
+import "./styles/App.css";
 
 function App() {
   return (
     <div>
       {/* <Ranking /> */}
-      {/* <Exhibition /> */}
-      <Goods />
+      {/* <Gallery /> */}
+      {/* <Goods /> */}
+      <Main />
     </div>
   );
 }

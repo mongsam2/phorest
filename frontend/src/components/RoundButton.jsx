@@ -1,4 +1,3 @@
-// RoundButton.js
 import "../styles/RoundButton.css";
 
 const RoundButton = ({ onClick, imageSrc, alt }) => {
