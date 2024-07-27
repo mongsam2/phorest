@@ -1,10 +1,19 @@
 from django.contrib import admin
 from .models import User
 from django.contrib.auth.admin import UserAdmin
+from .models import UserGallery, UserProduct
 
 # Register your models here.
+class LikeGalleryInline(admin.TabularInline):
+    model = UserGallery
+
+class LikeProductInline(admin.TabularInline):
+    model = UserProduct
+
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    inlines = (LikeGalleryInline, LikeProductInline)
     list_display = ("username", "email", "is_staff", "date_joined")
     fieldsets = (
         ("기본정보", 
@@ -18,8 +27,6 @@ class CustomUserAdmin(UserAdmin):
             "is_sms_subscribed",
             "is_email_subscribed",
             "is_verified",
-            "product_likes",
-            "gallery_likes",
             )
         }
         ),

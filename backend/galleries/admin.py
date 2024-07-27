@@ -10,5 +10,6 @@ class GalleryAdmin(admin.ModelAdmin):
         "upload_date",
         "type",
         "category",
+        "private",
         "like_count",
     )
