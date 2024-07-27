@@ -2,6 +2,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+class UserGallery(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    gallery = models.ForeignKey("galleries.Gallery", on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+class UserProduct(models.Model):    
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+
+
 class User(AbstractUser):
     "username은 AbstractUser에 이미 존재"
     "password는 AbstactUser애 이미 존재"
@@ -20,9 +32,11 @@ class User(AbstractUser):
     is_sms_subscribed = models.BooleanField(default=False)
     is_email_subscribed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
-    product_likes = models.ManyToManyField("products.Product", related_name="like_users", null=True, blank=True)
-    gallery_likes = models.ManyToManyField("galleries.Gallery", related_name="like_users", null=True, blank=True)
+    like_gallery = models.ManyToManyField("galleries.Gallery", through=UserGallery, related_name="like_users")
+    like_product = models.ManyToManyField("products.Product", through=UserProduct, related_name="like_users")
 
 
     def __str__(self):
         return self.username
+    
+

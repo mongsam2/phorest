@@ -7,6 +7,7 @@ class Gallery(models.Model):
     upload_date = models.DateField(auto_now_add=True)
     is_personal_background = models.BooleanField(default=False)
     personal_background = models.ImageField(upload_to="personal_background/", null=True, blank=True)
+    private = models.BooleanField(default=False)
     type = models.ForeignKey("categories.CategoryType", on_delete=models.SET_NULL, null=True, blank=True, related_name="galleries")
     common_background = models.ForeignKey("backgrounds.Background", on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey("categories.Category", on_delete=models.SET_NULL, null=True, blank=True, related_name="galleries")
