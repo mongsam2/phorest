@@ -36,7 +36,7 @@ export default function Ranking() {
           <RankingImg count={6}/>
         </div>
         <div className="ranking-main-goods">
-          <h1 style={{ marginTop: '100px', marginLeft: '10px' ,fontSize: '32px', fontStyle: 'normal', fontWeight: '700'}}>베스트 굿즈 상품들</h1>
+          <h1 className='ranking-goods-title'>베스트 굿즈 상품들</h1>
           <GoodsImg />
         </div>
       </main>
