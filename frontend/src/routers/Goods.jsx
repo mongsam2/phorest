@@ -37,7 +37,7 @@ export default function Goods() {
                     <RankingImg count={3} />
                 </div>
 
-                <div className="ranking-filter">
+                <div className="goods-filter">
                     <FilterButton filterButtons={goodsFilterButtons} />
                 </div>
 

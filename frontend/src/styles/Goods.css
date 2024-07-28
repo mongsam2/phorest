@@ -12,6 +12,11 @@
     width: 100%;
 }
 
+.goods-filter {
+    margin-top : -4%;
+    margin-left : 4%;
+}
+
 .Goods-main-goods {
     height: 50%;
 }
