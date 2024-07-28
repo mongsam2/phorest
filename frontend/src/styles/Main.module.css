@@ -1,9 +1,9 @@
-html,
-body {
+/* Main.module.css */
+:global(html, body) {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  height: 100vh;
+  height: 100%;
 }
 
 .containerMain {
@@ -14,6 +14,8 @@ body {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .bgImg {
@@ -67,4 +69,10 @@ body {
 .enterButton img {
   width: 100%;
   height: auto;
+}
+
+.pageWrapper {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }

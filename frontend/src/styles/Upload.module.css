@@ -1,0 +1,152 @@
+/* Upload.module.css */
+
+.containerUpload {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    /* padding: 0 20px; */
+    background: transparent;
+  }
+  
+  .previewBox {
+    width: 70%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 30px;
+  }
+  
+  .previewContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: transparent;
+  }
+  .bgImg {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: dashed 3px gray;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .bgImgHovered {
+    border-color: blue;
+  }
+  
+  .mainPhoto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 3 / 2;
+    width: 60%;
+    min-width: 600px;
+    min-height: 400px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.7);
+    border: dashed 3px gray;
+  }
+  
+  .mainPhotoHovered {
+    border-color: blue;
+  }
+  
+  .mainPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .infoBox {
+    position: absolute;
+    bottom: 5%;
+    left: 4%;
+    width: 500px;
+    max-width: 40%;
+    height: 110px;
+    border-radius: 20px;
+    border: dashed 3px gray;
+    opacity: 0.5;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    align-items: center;
+    display: flex;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s;
+  }
+  
+  .infoBox.hovered {
+    opacity: 0.95;
+    border-color: blue;
+  }
+  
+  .infoBox .userImage {
+    margin-left: 30px;
+    margin-right: 15px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .infoBox .userImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .infoBox .textContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .infoBox .textContent .title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .infoBox .textContent .titleInput {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    width: 100%; /* 전체 너비 사용 */
+    box-sizing: border-box; /* padding 포함 */
+  }
+  
+  .infoBox .textContent .error {
+    color: red;
+    font-size: 0.9em;
+  }
+  
+  .customBox {
+    width: 30%; /* 전체 너비의 30%를 차지 */
+    height: 100%; /* 전체 높이를 차지 */
+    display: flex;
+    flex-direction: column;
+    background: #f0f0f0; /* 샘플 배경색 */
+  }
+  
+  .custom_head,
+  .custom_body,
+  .custom_foot {
+    flex: 1;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

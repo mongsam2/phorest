@@ -1,9 +1,9 @@
-import "../styles/Gallery.css";
+import styles from "../styles/Gallery.module.css";
 import { useState, useEffect } from "react";
-import useHover from "../utils/useHover";
+import useHover2 from "../utils/useHover2";
 
 import RoundButton from "../components/RoundButton";
-import btnFullscreenImage from "../assets/btn_fullscreen.png"; // 이미지 경로를 import로 불러옴
+import btnFullscreenImage from "../assets/btn_fullscreen.png";
 import btnLikeImage from "../assets/btn_like.png";
 import mainPhoto from "../assets/mainPhoto1.png";
 import mainPhoto2 from "../assets/mainPhoto2.png";
@@ -17,47 +17,46 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { y } = useScroll();
-  const [hovered, setHovered] = useState(false);
+  const [infoBoxHovered, setInfoBoxHovered] = useState(false);
 
   const handleClick = () => {
     alert("Button clicked!");
   };
 
-  const handleHover = () => {
-    setHovered(true);
+  const handleInfoBoxHover = () => {
+    setInfoBoxHovered(true);
   };
-
-  const handleHoverOut = () => {
-    setHovered(false);
+  const handleInfoBoxHoverOut = () => {
+    setInfoBoxHovered(false);
   };
-
-  const infoBoxRef = useHover(handleHover);
+  const infoBoxRef = useHover2(handleInfoBoxHover, handleInfoBoxHoverOut);
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div
-        className="bgImg"
+        className={styles.bgImg}
         style={{
           backgroundImage: y < 100 ? `url(${bgImg})` : `url(${bgImg2})`,
         }}
       >
-        <div className="mainPhoto">
+        <div className={styles.mainPhoto}>
           <img src={y < 100 ? mainPhoto : mainPhoto2} alt="Main Photo" />
         </div>
         <div
           ref={infoBoxRef}
-          className={`infoBox ${hovered ? "hovered" : ""}`}
-          onMouseLeave={handleHoverOut}
+          className={`${styles.infoBox} ${
+            infoBoxHovered ? styles.hovered : ""
+          }`}
         >
-          <div className="userImage">
+          <div className={styles.userImage}>
             <img src={profileImg} alt="User" />
           </div>
-          <div className="textContent">
-            <div className="title">이곳은 제목입니다.</div>
-            <div className="date">2024. 7. 26</div>
+          <div className={styles.textContent}>
+            <div className={styles.title}>이곳은 제목입니다.</div>
+            <div className={styles.date}>2024. 7. 26</div>
           </div>
         </div>
-        <div className="sideBtns">
+        <div className={styles.sideBtns}>
           <RoundButton
             onClick={handleClick}
             imageSrc={btnFullscreenImage}

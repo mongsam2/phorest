@@ -1,5 +1,5 @@
-import "../styles/Main.css";
-import { useState, useEffect } from "react";
+import styles from "../styles/Main.module.css";
+import { useState } from "react";
 import useHover from "../utils/useHover";
 import useScroll from "../utils/useScroll";
 
@@ -25,13 +25,13 @@ const Main = () => {
   };
 
   return (
-    <div className="containerMain">
+    <div className={styles.containerMain}>
       <div
-        className="bgImg"
+        className={styles.bgImg}
         style={{ backgroundImage: `url(${categoryPet})` }}
       ></div>
-      <div className="bigLetterLogo"></div>
-      <div className="ArrowButtonsBox">
+      <div className={styles.bigLetterLogo}></div>
+      <div className={styles.ArrowButtonsBox}>
         <ArrowButton
           onClick={leftButtonHandler}
           imageSrc={leftArrowBtnImg}
@@ -43,7 +43,7 @@ const Main = () => {
           alt="right arrow button"
         />
       </div>
-      <button className="enterButton" onClick={enterClickHandler}>
+      <button className={styles.enterButton} onClick={enterClickHandler}>
         <img src={enterButton} alt="입장하기" />
       </button>
     </div>
