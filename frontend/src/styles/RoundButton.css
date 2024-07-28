@@ -1,0 +1,23 @@
+/* RoundButton.css */
+.round-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: transparent; /* 배경 투명 */
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+}
+
+.round-button img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
