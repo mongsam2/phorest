@@ -3,17 +3,19 @@ import Ranking from "./routers/Ranking";
 import Goods from "./routers/Goods";
 import Main from "./routers/Main";
 import Upload from "./routers/Upload";
+import GoodsBuy from "./routers/GoodsBuy";
 
 import "./styles/App.css";
+
 
 function App() {
   return (
     <div>
-      {/* <Ranking /> */}
+      <Ranking />
       {/* <Gallery /> */}
       {/* <Goods /> */}
       {/* <Main /> */}
-      <Upload />
+      {/* <GoodsBuy /> */}
     </div>
   );
 }

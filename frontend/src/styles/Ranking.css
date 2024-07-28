@@ -10,9 +10,11 @@
 
 .ranking-filter {
     display: flex;
-    gap : 20px;
-    margin-left : 13px;
-    margin-bottom : 100px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    margin-top : -100px;
 
 }
 .ranking-all-button {

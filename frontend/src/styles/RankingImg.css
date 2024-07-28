@@ -5,19 +5,22 @@
   }
 
 .rankingImg-wrap {
-    height: 700px;
-    width: 1920px;
+    height: 500px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    margin-top: 50px;
-    gap: 50px;
+    margin-top: 3%;
+    gap : 2%;
+    
 }
 
 .rankingImg-box {
-    height: 316px;
-    width: 600px;
+    height: 50%;
+    width: 28%;
     background-color: #D9D9D9;
+    display: flex;
     position: relative;
     border-radius: 10px;
 }
@@ -39,8 +42,8 @@
 }
 
 .best-ranking {
-    height: 316px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
     border-radius: 10px;
 }
 
@@ -54,10 +57,10 @@
 
 .best-ranking-p {
     position: absolute;
-    top: 70%;
-    left: 20%;
+    top: 69%;
+    left: 22%;
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
     
