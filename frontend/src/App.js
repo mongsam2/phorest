@@ -10,11 +10,11 @@ import "./styles/App.css";
 function App() {
   return (
     <div>
-      {/* <Ranking /> */}
+      <Ranking />
       {/* <Gallery /> */}
       {/* <Goods /> */}
       {/* <Main /> */}
-      <GoodsBuy />
+      {/* <GoodsBuy /> */}
     </div>
   );
 }
