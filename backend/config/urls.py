@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/login", views.UserLogin.as_view()),
+    path("api/logout", views.UserLogout.as_view()),
     path('api/categories/', include("categories.urls")),
     path("api/galleries/", include("galleries.urls")),
     path("api/users/", include("users.urls")),
