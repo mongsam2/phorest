@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from .serializers import GalleryListSerializer, GallerySerializer
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from .models import Gallery
 from categories.models import Category, CategoryType
