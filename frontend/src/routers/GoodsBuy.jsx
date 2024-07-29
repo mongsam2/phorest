@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import { useLocation } from 'react-router-dom';
 import goodsBuyplus from '../assets/goodsBuy-plus.svg';
 import goodsBuyminus from '../assets/goodsBuy-minus.svg';
-
-import sample from '../assets/mainPhoto1.png';
 
 import '../styles/GoodsBuy.css';
 
 export default function GoodsBuy(props) {
+    const location = useLocation();
+    const { imgSrc } = location.state || {};
     const [count, setCount] = useState(1);
 
     function handleValue(event) {
@@ -27,7 +28,7 @@ export default function GoodsBuy(props) {
             </header>
             <main className='GoodsBuy-main'>
                 <div className='GoodsBuy-left'>
-                    <img src={sample} alt="굿즈 사진" className="GoodsBuy-img" />
+                    <img src={imgSrc} alt="굿즈 사진" className="GoodsBuy-img" />
                 </div>
 
                 <div className='GoodsBuy-right'>
