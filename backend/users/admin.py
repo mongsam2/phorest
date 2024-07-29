@@ -18,14 +18,14 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         ("기본정보", 
          {"fields": (
-            "username", 
+            "username",
+            "name", 
             "password", 
             "email", 
             "address", 
             "profile_image", 
             "login_path", 
-            "is_sms_subscribed",
-            "is_email_subscribed",
+            "subscribed",
             "is_verified",
             )
         }
