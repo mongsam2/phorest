@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from .serializers import GalleryListSerializer, GallerySerializer, GalleryPutSerializer
+from .serializers import GalleryListSerializer, GallerySerializer, GalleryPutSerializer, GalleryRankingSerializer
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
@@ -111,3 +111,26 @@ class GalleryDetail(APIView):
         else:
             return Response({"detail":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
+
+class GalleryRanking(APIView):
+
+    def get(self, request):
+        type_name = request.query_params.get("type")
+        category_name = request.query_params.get("category")
+        if not type_name:
+            raise ParseError("타입 정보가 입력되지 않았습니다.")
+        try:
+            type = CategoryType.objects.get(name=type_name)
+        except CategoryType.DoesNotExist:
+            raise NotFound("해당 타입이 존재하지 않습니다.")
+        
+        if not category_name:
+            raise ParseError("카테고리 정보가 입력되지 않았습니다.")
+        try:
+            category = Category.objects.get(name=category_name, types=type)
+        except Category.DoesNotExist:
+            raise NotFound("해당 카테고리가 존재하지 않습니다.")
+        
+        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True).order_by()
+        serializer = GalleryListSerializer(galleries, many=True)
+        return Response(serializer.data)
