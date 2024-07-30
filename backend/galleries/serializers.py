@@ -33,3 +33,9 @@ class GallerySerializer(ModelSerializer):
     class Meta:
         model = Gallery
         fields = ("image", "title", "personal_background", "private")
+
+class GalleryPutSerializer(ModelSerializer):
+
+    class Meta:
+        model = Gallery
+        fields = ("title", "personal_background", "private")
