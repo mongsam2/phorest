@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-
+import Navbar from './components/navbar';
+import Signup from './pages/Signup';
 import Gallery from "./routers/Gallery";
 import Ranking from "./routers/Ranking";
 import Goods from "./routers/Goods";
@@ -12,6 +14,7 @@ import "./styles/App.css";
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     // <div>
     //   {/* <Ranking /> */}
@@ -27,5 +30,5 @@ function App() {
             </Routes>
     </Router>
   );
-}
+};
 export default App;
