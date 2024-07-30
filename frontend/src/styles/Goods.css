@@ -21,10 +21,12 @@
     display: flex;
     margin-left : 4%;
     margin-top: 2%;
+    width: 14%;
 }
 
 .Goods-main-goods {
-    margin-top : -2%;
+    margin-top : -4%;
+    line-height: 85%;
     height: 50%;
 }
 

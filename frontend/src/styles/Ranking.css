@@ -9,14 +9,14 @@
 
 .ranking-filter {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-top : 2%;
-    margin-left : 0.2%;
-    width: 50%;
+    margin-left : 4%;
+    width: 100%;
     height: 10%;
 }
-.ranking-all-button {
+/* .ranking-all-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,7 +112,7 @@
     width: 151.4px;
     height: 72px;
     padding-right: 10px;
-}
+} */
 
 .ranking-main-best {
     height: 30%;
@@ -120,7 +120,8 @@
 
 }
 .ranking-goods-title {
-    margin-top: 5%;
+    margin-top: 8%;
+    margin-bottom : -2%;
     margin-left: 4%;
     font-size: 2rem;
     font-style: normal;
@@ -128,6 +129,7 @@
 }
 
 .ranking-main-goods {
+    line-height: 85%;
     height: 50%;
 }
 
