@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # thrid party
     'rest_framework',
+    'corsheaders',
 
     # apps
     'backgrounds.apps.BackgroundsConfig',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,3 +143,8 @@ AUTH_USER_MODEL = "users.User"
 # Media
 MEDIA_ROOT = "uploads"
 MEDIA_URL = "uploads/"
+
+# CORS 설정
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]

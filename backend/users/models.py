@@ -7,6 +7,9 @@ class UserGallery(models.Model):
     gallery = models.ForeignKey("galleries.Gallery", on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.date}"
+
 class UserProduct(models.Model):    
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE)

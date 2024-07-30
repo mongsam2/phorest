@@ -1,4 +1,6 @@
 from django.db import models
+from users.models import UserGallery
+from datetime import timedelta, datetime
 
 # Create your models here.
 class Gallery(models.Model):
@@ -20,3 +22,9 @@ class Gallery(models.Model):
     def like_count(self):
         count = self.like_users.count()
         return count
+    
+    def weekly_like(self):
+        now = datetime.now().date()
+        start = now - timedelta(days=7)
+        return UserGallery.objects.filter(gallery=self, date__gte=start).count()
+    
