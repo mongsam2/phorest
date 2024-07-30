@@ -1,7 +1,7 @@
 .filter-button-container {
     display: flex;
     width: 85%;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 3%;
     gap: 2.2%;
 }
@@ -11,15 +11,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 5%;
+    gap: 10%;
     border-radius: 49px;
-    padding: 8px 5px 8px 0px;
+    padding: 0.8%; 
     border: 2px solid rgba(45, 45, 45, 0.16);
     background-color: #FFF;
     color: #2D2D2D; 
     transition: background-color 0.3s, color 0.3s; 
-    width: 90%; 
+    width: auto; 
+    min-width: 7%; 
+    max-width: 30%;
     font-size: 2vw; 
+    white-space: nowrap;
 }
 
 .ranking-button.active {

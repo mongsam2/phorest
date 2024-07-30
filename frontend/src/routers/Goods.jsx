@@ -51,7 +51,7 @@ export default function Goods() {
                     <FilterButton filterButtons={goodsFilterButtons} />
                 </div>
                 <div className='goods-sort' onClick={() => setView(!view)}>
-                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400' }}>
+                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400'}}>
                         정렬 방식: <span style={{ color: '#000', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '500' }}>{selectedSort}</span>
                     </p>
                     {view ? <img src={array_drop_up} alt="dropdown up" /> : <img src={array_drop_down} alt="dropdown down" />}

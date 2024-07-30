@@ -1,10 +1,27 @@
+body {
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  -ms-overflow-style: none;
+}
+.container::-webkit-scrollbar {
+  display: none;
+}
+
 /* Gallery.css */
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10000vh;
   background: transparent;
+  overflow: hidden;
 }
 
 .bgImg {
