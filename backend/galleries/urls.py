@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.Galleries.as_view()),
+    path("<id>/", views.GalleryDetail.as_view()),
 ]
