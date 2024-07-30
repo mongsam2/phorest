@@ -25,8 +25,12 @@ function App() {
     // </div>
     <Router>
             <Routes>
-                <Route path="/" element={<Goods />} />
+                <Route path="/" element={<Main />} />
+                <Route path="/ranking" element={<Ranking />} />
+                <Route path="/goods" element={<Goods />} />
                 <Route path="/goodsbuy" element={<GoodsBuy />} />
+                <Route path="/upload" element={<Upload />} />
+                <Route path="/Gallery" element={<Gallery />} />
             </Routes>
     </Router>
   );

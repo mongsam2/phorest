@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom'; 
 
 import temporal from '../assets/ranking-pet-filter.svg';
+import sample from '../assets/mainPhoto1.png';
 import '../styles/GoodsImg.css';
 
 function GoodsImgBox({ index }) {
     const navigate = useNavigate(); 
 
     const handleClick = () => {
-        navigate('/goodsbuy'); 
+        navigate('/goodsbuy', { state: { imgSrc: temporal } }); 
     };
 
     return (

@@ -13,11 +13,18 @@
 }
 
 .goods-filter {
-    margin-top : -4%;
+    margin-top : -7%;
     margin-left : 4%;
 }
 
+.goods-sort {
+    display: flex;
+    margin-left : 4%;
+    margin-top: 2%;
+}
+
 .Goods-main-goods {
+    margin-top : -2%;
     height: 50%;
 }
 

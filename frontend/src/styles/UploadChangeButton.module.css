@@ -1,0 +1,27 @@
+.container {
+  width: 90%;
+  margin: 20px;
+}
+
+.button {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+}
+.button:active {
+  background-color: #1a1a1a; /* 버튼을 누를 때 배경 색상 변경 */
+  transform: translateY(4px); /* 버튼이 눌리는 느낌을 주기 위해 위치를 이동 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 눌렸을 때 그림자 효과 */
+}
+
+.button:hover {
+  background-color: #4d4d4d; /* 버튼에 마우스를 올렸을 때 배경 색상 변경 */
+}
