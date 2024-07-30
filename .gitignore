@@ -1,3 +1,4 @@
 backend/myvenv
 backend/uploads
 backend/db.sqlite3
+.DS_Store
