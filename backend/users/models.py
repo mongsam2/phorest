@@ -14,6 +14,10 @@ class UserProduct(models.Model):
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
     product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
+    delivery = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.date}"
 
 
 
@@ -36,7 +40,7 @@ class User(AbstractUser):
     subscribed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     like_gallery = models.ManyToManyField("galleries.Gallery", through=UserGallery, related_name="like_users")
-    like_product = models.ManyToManyField("products.Product", through=UserProduct, related_name="like_users")
+    product_list = models.ManyToManyField("products.Product", through=UserProduct, related_name="buyers")
 
 
     def __str__(self):

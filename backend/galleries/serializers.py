@@ -41,7 +41,15 @@ class GalleryPutSerializer(ModelSerializer):
         fields = ("title", "personal_background", "private")
 
 class GalleryRankingSerializer(ModelSerializer):
+    profile_image = SerializerMethodField()
+    image = SerializerMethodField()
 
     class Meta:
         model = Gallery
         fields = ("image", "title", "profile_image")
+
+    def get_profile_image(self, gallery):
+        return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
+    
+    def get_image(self, gallery):
+        return settings.BASE_URL + settings.MEDIA_URL + str(gallery.image)

@@ -7,9 +7,13 @@ class Product(models.Model):
     description = models.TextField(null=True, blank=True)
     price = models.PositiveIntegerField()
     gallery = models.ForeignKey('galleries.Gallery', on_delete=models.SET_NULL, null=True, blank=True, related_name="products")
+    image = models.ImageField(upload_to="goods", null=True, blank=True)
 
     def __str__(self):
         return self.name
+    
+    def sales(self):
+        return self.buyers.count()
 
 
 class ProductImage(models.Model):
