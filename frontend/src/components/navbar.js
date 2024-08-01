@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './navbar.css'; 
+import '../styles/navbar.css'; 
 
 const Navbar = ({ isLoggedIn }) => {
   return (
@@ -16,12 +16,12 @@ const Navbar = ({ isLoggedIn }) => {
       <div className="nav-icons">
         <Link to="/search">🔍</Link>
         <Link to="/favorites">⭐</Link>
-        <Link to="/shop">🛒</Link>
+        <Link to="/goods">🛒</Link>
         <Link to="/notifications">🔔</Link>
       </div>
       {isLoggedIn ? (
         <div className="nav-actions">
-          <Link to="/profile">프로필</Link>
+          <Link to="/signup">프로필</Link>
           <Link to="/logout">로그아웃</Link>
           <Link to="/upload" className="upload-button">갤러리 업로드</Link>
         </div>

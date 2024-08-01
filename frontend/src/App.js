@@ -26,11 +26,13 @@ function App() {
     <Router>
             <Routes>
                 <Route path="/" element={<Main />} />
+                <Route path="/navbar" element={<Navbar />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/goods" element={<Goods />} />
                 <Route path="/goodsbuy" element={<GoodsBuy />} />
                 <Route path="/upload" element={<Upload />} />
                 <Route path="/Gallery" element={<Gallery />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
     </Router>
   );
