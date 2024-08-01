@@ -9,6 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
         "release_date",
         "price",
         "gallery",
+        "sales",
     )   
 
 @admin.register(ProductImage)

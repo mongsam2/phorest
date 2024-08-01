@@ -11,6 +11,9 @@ from rest_framework.exceptions import ParseError, NotFound, PermissionDenied
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from django.db.models import Count, Q
+from datetime import timedelta, datetime
+
 # Create your views here.
 class Galleries(APIView):
     parser_classes = [MultiPartParser]
@@ -19,7 +22,7 @@ class Galleries(APIView):
     def get(self, request):
         type_name = request.query_params.get("type")
         category_name = request.query_params.get("category")
-        page = request.query_params.get("page", "1")
+        page = int(request.query_params.get("page", "1"))
 
         if not type_name:
             raise ParseError("타입 정보가 입력되지 않았습니다.")
@@ -35,8 +38,8 @@ class Galleries(APIView):
         except Category.DoesNotExist:
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
-        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True)[(page-1)*20:page*20]
-        serializer = GalleryListSerializer(galleries, many=True)
+        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True)[(page-1)*5:page*5]
+        serializer = GalleryListSerializer(galleries, many=True, context={"request":request})
         return Response(serializer.data)
 
     def post(self, request):
@@ -131,6 +134,7 @@ class GalleryRanking(APIView):
         except Category.DoesNotExist:
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
-        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True).order_by()
-        serializer = GalleryListSerializer(galleries, many=True)
+        start = datetime.now().date() - timedelta(days=7)
+        galleries = Gallery.objects.annotate(likes_last_week=Count('like_users', filter=Q(usergallery__date__gte=start))).order_by("-likes_last_week")[:6]
+        serializer = GalleryRankingSerializer(galleries, many=True)
         return Response(serializer.data)
