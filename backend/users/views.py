@@ -3,10 +3,13 @@ from rest_framework.response import Response
 from django.contrib.auth import login, authenticate, logout
 
 from .models import User
-from .serializers import UserCreateSerializer
+from .serializers import UserCreateSerializer, UserDetailSerializer
 
 from rest_framework import status
 from rest_framework.exceptions import ParseError, AuthenticationFailed, NotAuthenticated
+
+from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class Users(APIView):
@@ -44,6 +47,9 @@ class UserLogout(APIView):
         return Response({"detail":"로그아웃"})
 
 class UserDetail(APIView):
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, id):
-        pass
+    def get(self, request):
+        serializer = UserDetailSerializer(request.user)
+        return Response(serializer.data)
+        
