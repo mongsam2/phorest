@@ -10,7 +10,7 @@ import array_drop_up from '../assets/arrow_drop_up.svg';
 
 import Foot from '../components/Foot.jsx';
 import GoodsImg from '../components/GoodsImg.jsx';
-import RankingImg from '../components/RankingImg';
+import GoodsRanking from '../components/GoodsRanking';
 import FilterButton from '../components/FilterButton.jsx';
 import Dropdown from '../components/Dropdown.jsx';
 
@@ -44,7 +44,7 @@ export default function Goods() {
 
             <main>
                 <div className="Goods-main-best">
-                    <RankingImg count={3} />
+                    <GoodsRanking count={3} />
                 </div>
 
                 <div className="goods-filter">
