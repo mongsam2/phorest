@@ -6,10 +6,11 @@ class GalleryListSerializer(ModelSerializer):
     background_image = SerializerMethodField()
     image = SerializerMethodField()
     profile_image = SerializerMethodField()
+    like = SerializerMethodField()
 
     class Meta:
         model = Gallery
-        fields = ("image", "background_image","title", "upload_date", "profile_image")
+        fields = ("image", "background_image","title", "upload_date", "profile_image", "like")
 
 
     def get_image(self, gallery):
@@ -27,6 +28,13 @@ class GalleryListSerializer(ModelSerializer):
             return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
         else:
             return None
+    
+    def get_like(self, gallery):
+        request = self.context["request"]
+        if request.user.like_gallery.filter(id=gallery.id).exists():
+            return True
+        else:
+            return False
         
 class GallerySerializer(ModelSerializer):
     

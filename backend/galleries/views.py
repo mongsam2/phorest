@@ -22,7 +22,7 @@ class Galleries(APIView):
     def get(self, request):
         type_name = request.query_params.get("type")
         category_name = request.query_params.get("category")
-        page = request.query_params.get("page", "1")
+        page = int(request.query_params.get("page", "1"))
 
         if not type_name:
             raise ParseError("타입 정보가 입력되지 않았습니다.")
@@ -39,7 +39,7 @@ class Galleries(APIView):
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
         galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True)[(page-1)*5:page*5]
-        serializer = GalleryListSerializer(galleries, many=True)
+        serializer = GalleryListSerializer(galleries, many=True, context={"request":request})
         return Response(serializer.data)
 
     def post(self, request):
