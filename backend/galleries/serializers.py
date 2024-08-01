@@ -36,6 +36,24 @@ class GalleryListSerializer(ModelSerializer):
         else:
             return False
         
+class GallerySmallSerializer(ModelSerializer):
+    image = SerializerMethodField()
+    profile_image = SerializerMethodField()
+
+    class Meta:
+        model = Gallery
+        fields = ("id", "image","title", "upload_date", "profile_image")
+
+    def get_image(self, gallery):
+        return settings.BASE_URL + settings.MEDIA_URL + str(gallery.image)
+    
+    def get_profile_image(self, gallery):
+        if gallery.user.profile_image:
+            return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
+        else:
+            return None
+        
+        
 class GallerySerializer(ModelSerializer):
     
     class Meta:
