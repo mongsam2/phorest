@@ -4,7 +4,7 @@ from .models import Category, CategoryType
 # Register your models here.
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "recommend")
+    list_display = ("__str__", "all_type","recommend")
 
 
 @admin.register(CategoryType)
