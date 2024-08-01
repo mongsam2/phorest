@@ -42,3 +42,8 @@ class UserLogout(APIView):
             raise NotAuthenticated("로그인 되어있지 않습니다.")
         logout(request)
         return Response({"detail":"로그아웃"})
+
+class UserDetail(APIView):
+
+    def get(self, request, id):
+        pass
