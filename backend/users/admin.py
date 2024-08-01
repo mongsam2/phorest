@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, UserGallery, UserProduct
 from django.contrib.auth.admin import UserAdmin
 from .models import UserGallery, UserProduct
 
@@ -10,6 +10,9 @@ class LikeGalleryInline(admin.TabularInline):
 class LikeProductInline(admin.TabularInline):
     model = UserProduct
 
+@admin.register(UserProduct)
+class UserProductAdmin(admin.ModelAdmin):
+    list_display = ("user", "product", "date", "delivery", "count")
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):

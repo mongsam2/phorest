@@ -12,9 +12,10 @@ class UserGallery(models.Model):
 
 class UserProduct(models.Model):    
     user = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    product = models.ForeignKey("products.Product", on_delete=models.CASCADE)
+    product = models.ForeignKey("products.Product", on_delete=models.CASCADE, related_name="shopping_list")
     date = models.DateField(auto_now_add=True)
     delivery = models.BooleanField(default=False)
+    count = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return f"{self.date}"

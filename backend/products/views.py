@@ -2,10 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Product
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from categories.models import Category
 
-from .serializers import ProductListSerializer
+from .serializers import ProductListSerializer, ProductDetailSerializer
 
 from rest_framework.exceptions import NotFound
 
@@ -31,6 +31,24 @@ class Products(APIView):
             return Response(serializer.data)
 
         elif sort == "판매량순":
-            products = Product.objects.annotate(orderd=Count("buyers")).filter(gallery__category=category).order_by("-orderd")[(page-1)*size:page*size]
+            products = Product.objects.annotate(orderd=Sum("shopping_list__count")).filter(gallery__category=category).order_by("-orderd")[(page-1)*size:page*size]
             serializer = ProductListSerializer(products, many=True)
             return Response(serializer.data)
+        
+class ProductRanking(APIView):
+
+    def get(self, request):
+        products = Product.objects.annotate(orderd=Sum("shopping_list__count")).order_by("-orderd")[:3]
+        serializer = ProductListSerializer(products, many=True)
+        return Response(serializer.data)
+
+class ProductDetail(APIView):
+
+    def get(self, request, id):
+        try:
+            product = Product.objects.get(id=id)
+        except Product.DoesNotExist:
+            raise NotFound("해당 id를 가진 상품이 존재하지 않습니다.")
+        serializer = ProductDetailSerializer(product)
+        return Response(serializer.data)
+        

@@ -38,7 +38,7 @@ class Galleries(APIView):
         except Category.DoesNotExist:
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
-        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True)[(page-1)*20:page*20]
+        galleries = Gallery.objects.filter(type=type, category=category).exclude(private=True)[(page-1)*5:page*5]
         serializer = GalleryListSerializer(galleries, many=True)
         return Response(serializer.data)
 

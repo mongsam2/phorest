@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 # Create your models here.
 class Product(models.Model):
@@ -13,7 +14,10 @@ class Product(models.Model):
         return self.name
     
     def sales(self):
-        return self.buyers.count()
+        total = 0
+        for element in self.shopping_list.all():
+            total += element.count
+        return total
 
 
 class ProductImage(models.Model):
