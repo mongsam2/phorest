@@ -9,7 +9,7 @@ from backgrounds.models import Background
 
 from rest_framework.exceptions import ParseError, NotFound, PermissionDenied
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from django.db.models import Count, Q
 from datetime import timedelta, datetime
@@ -138,3 +138,21 @@ class GalleryRanking(APIView):
         galleries = Gallery.objects.annotate(likes_last_week=Count('like_users', filter=Q(usergallery__date__gte=start))).order_by("-likes_last_week")[:6]
         serializer = GalleryRankingSerializer(galleries, many=True)
         return Response(serializer.data)
+
+
+class GalleryLike(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, id):
+        try:
+            gallery = Gallery.objects.get(id=id)
+        except Gallery.DoesNotExist:
+            raise NotFound("해당 id를 가진 작품이 존재하지 않습니다.")
+        if request.user.like_gallery.filter(id=gallery.id).exists():
+            request.user.like_gallery.remove(request.user.like_gallery.get(id=gallery.id))
+            return Response({"detail":"클릭! 좋아요를 지웠어요!"})
+        else:
+            request.user.like_gallery.add(gallery)
+            request.user.save()
+            return Response({"detail":"클릭! 좋아요를 눌렀어요!"})
+
