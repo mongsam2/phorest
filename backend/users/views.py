@@ -3,10 +3,15 @@ from rest_framework.response import Response
 from django.contrib.auth import login, authenticate, logout
 
 from .models import User
-from .serializers import UserCreateSerializer
+from galleries.models import Gallery
+from .serializers import UserCreateSerializer, UserDetailSerializer, UserPutSerializer
+from galleries.serializers import GallerySmallSerializer
 
 from rest_framework import status
 from rest_framework.exceptions import ParseError, AuthenticationFailed, NotAuthenticated
+
+from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class Users(APIView):
@@ -44,6 +49,37 @@ class UserLogout(APIView):
         return Response({"detail":"로그아웃"})
 
 class UserDetail(APIView):
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, id):
-        pass
+    def get(self, request):
+        serializer = UserDetailSerializer(request.user)
+        return Response(serializer.data)
+    
+    def put(self, request):
+        user = request.user
+        serializer = UserPutSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"detail": "성공!"})
+        else:
+            return Response({"detail":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+class MyGalleries(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        page = int(request.query_params.get("page", "1"))
+        size = 3
+        my_gallery = Gallery.objects.filter(user=request.user)[(page-1)*size:page*size]
+        serializer = GallerySmallSerializer(my_gallery, many=True)
+        return Response(serializer.data)
+
+class LikeGalleries(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        page = int(request.query_params.get("page", "1"))
+        size = 3
+        like_gallery = Gallery.objects.filter(like_users=request.user)[(page-1)*size:page*size]
+        serializer = GallerySmallSerializer(like_gallery, many=True)
+        return Response(serializer.data)
