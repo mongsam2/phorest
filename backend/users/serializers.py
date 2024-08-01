@@ -20,3 +20,9 @@ class UserDetailSerializer(ModelSerializer):
             return settings.BASE_URL + settings.MEDIA_URL + str(user.profile_image)
         else:
             return None
+
+class UserPutSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ("username", "name", "phone","email", "address", "profile_image", "subscribed", "is_verified")
