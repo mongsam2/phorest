@@ -32,10 +32,15 @@ const goodsFilterButtons = [
 export default function Goods() {
     const [view, setView] = useState(false);
     const [selectedSort, setSelectedSort] = useState('최신순'); 
+    const [selectedCategory, setSelectedCategory] = useState('all-button'); 
 
     const handleSortChange = (sortOption) => {
         setSelectedSort(sortOption);
         setView(false); 
+    };
+
+    const handleCategoryChange = (categoryId) => {
+        setSelectedCategory(categoryId);
     };
 
     return (
@@ -48,7 +53,10 @@ export default function Goods() {
                 </div>
 
                 <div className="goods-filter">
-                    <FilterButton filterButtons={goodsFilterButtons} />
+                    <FilterButton 
+                        filterButtons={goodsFilterButtons} 
+                        setCategory={handleCategoryChange} 
+                    />
                 </div>
                 <div className='goods-sort' onClick={() => setView(!view)}>
                     <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400'}}>
@@ -61,7 +69,7 @@ export default function Goods() {
                 )}
 
                 <div className="Goods-main-goods">
-                    <GoodsImg list = {goodsFilterButtons} selectedSort={selectedSort} />
+                    <GoodsImg selectedCategory={selectedCategory} selectedSort={selectedSort} /> 
                 </div>
             </main>
 

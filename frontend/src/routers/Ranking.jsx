@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import all_filter from '../assets/ranking-all-filter.svg';
 import pet_filter from '../assets/ranking-pet-filter.svg';
 import ocean_filter from '../assets/ranking-ocean-filter.svg';
@@ -20,16 +22,23 @@ const rankingFilterButtons = [
   { id: 'season-button', label: '계절', icon: season_filter }
 ];
 
-export default function Ranking() {
- 
+export default function Ranking() { 
+  const [selectedCategory, setSelectedCategory] = useState('all-button'); 
 
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategory(categoryId);
+  };
+  
   return (
     <div className="ranking-wrap">
       <header></header>
 
       <main>
         <div className="ranking-filter">
-          <FilterButton filterButtons={rankingFilterButtons}/>
+          <FilterButton 
+            filterButtons={rankingFilterButtons} 
+            setCategory={handleCategoryChange}
+          />
         </div>
 
         <div className="ranking-main-best">
@@ -37,7 +46,7 @@ export default function Ranking() {
         </div>
         <div className="ranking-main-goods">
           <h1 className='ranking-goods-title'>베스트 굿즈</h1>
-          <GoodsImg />
+          <GoodsImg selectedCategory={selectedCategory}/>
         </div>
       </main>
 

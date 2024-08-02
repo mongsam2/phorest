@@ -17,10 +17,7 @@ export default function RankingImg({ count }) {
             } else {
                 console.error("응답이 배열이 아닙니다:", response.data);
             }
-            console.log(response.data);
-            console.log(ranking);
-            console.log(ranking.image);
-            console.log(ranking.profile_image);
+
         } catch (error) {
             console.error("Error fetching posts:", error);
         }

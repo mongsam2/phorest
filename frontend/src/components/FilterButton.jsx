@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/FilterButton.css';
 
-export default function FilterButton({ filterButtons }) {
+export default function FilterButton({ filterButtons, setCategory }) {
     const [activeButton, setActiveButton] = useState('all-button');
 
     const handleButtonClick = (buttonId) => {
         setActiveButton(buttonId);
+        setCategory(buttonId);
     };
 
     useEffect(() => {
