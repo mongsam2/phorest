@@ -3,9 +3,10 @@ from .serializers import GalleryListSerializer, GallerySerializer, GalleryPutSer
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
-from .models import Gallery
+from .models import Gallery, Hashtag
 from categories.models import Category, CategoryType
 from backgrounds.models import Background
+from users.models import User
 
 from rest_framework.exceptions import ParseError, NotFound, PermissionDenied
 from rest_framework import status
@@ -46,6 +47,8 @@ class Galleries(APIView):
         data = request.data
         type_name = data["type"]
         category_name = data["category"]
+        hashtags = data["hashtag"].split(" ")
+
         try:
             type = CategoryType.objects.get(name=type_name)
         except CategoryType.DoesNotExist:
@@ -67,6 +70,14 @@ class Galleries(APIView):
                 gallery = serializer.save(category=category, type=type, is_personal_background=False, common_background=background, user=request.user)
             else:
                 raise ParseError("기본 배경사진과 개인 배경사진 중, 하나만 입력해주세요.")
+            
+            for hashtag_name in hashtags:
+                try:
+                    hashtag = Hashtag.objects.get(name=hashtag_name)
+                except Hashtag.DoesNotExist:
+                    hashtag = Hashtag.objects.create(name=hashtag_name)
+                gallery.hashtags.add(hashtag)
+                    
             return Response({"gallery_id":gallery.id})
         else:
             return Response({"detail":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
@@ -150,9 +161,9 @@ class GalleryLike(APIView):
             raise NotFound("해당 id를 가진 작품이 존재하지 않습니다.")
         if request.user.like_gallery.filter(id=gallery.id).exists():
             request.user.like_gallery.remove(request.user.like_gallery.get(id=gallery.id))
-            return Response({"detail":"클릭! 좋아요를 지웠어요!"})
+            return Response({"like":False})
         else:
             request.user.like_gallery.add(gallery)
             request.user.save()
-            return Response({"detail":"클릭! 좋아요를 눌렀어요!"})
+            return Response({"like":True})
 
