@@ -60,7 +60,16 @@ class GallerySerializer(ModelSerializer):
     
     class Meta:
         model = Gallery
-        fields = ("image", "title", "personal_background", "private")
+        fields = ("image", "title", "personal_background", "private", "like")
+
+    def get_like(self, gallery):
+        request = self.context["request"]
+        if not request.user.is_authenticated:
+            return False
+        if request.user.like_gallery.filter(id=gallery.id).exists():
+            return True
+        else:
+            return False
 
 class GalleryPutSerializer(ModelSerializer):
 
