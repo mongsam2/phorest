@@ -21,7 +21,7 @@ BASE_URL = "localhost:8000"
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!gl-x6f2yebdj6090dq^m1eu5s2klem*k*)a@**hb2lx7g+cq0'
+SECRET_KEY = 'SONGJAEHYUN'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
