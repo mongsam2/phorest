@@ -10,6 +10,12 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+    def all_type(self):
+        lst = []
+        for type_one in self.types.all():
+            lst.append(type_one.name)
+        return " / ".join(lst)
 
 
 class CategoryType(models.Model):
