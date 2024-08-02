@@ -24,7 +24,7 @@ class GalleryListSerializer(ModelSerializer):
         return settings.BASE_URL + settings.MEDIA_URL + image_url
     
     def get_profile_image(self, gallery):
-        if gallery.user.profile_image:
+        if gallery.user.profile_image != None:
             return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
         else:
             return None
@@ -48,7 +48,7 @@ class GallerySmallSerializer(ModelSerializer):
         return settings.BASE_URL + settings.MEDIA_URL + str(gallery.image)
     
     def get_profile_image(self, gallery):
-        if gallery.user.profile_image:
+        if gallery.user.profile_image != None:
             return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
         else:
             return None
@@ -75,7 +75,11 @@ class GalleryRankingSerializer(ModelSerializer):
         fields = ("image", "title", "profile_image")
 
     def get_profile_image(self, gallery):
-        return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
+        if gallery.user.profile_image != None:
+            return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
+        else:
+            return None
+        
     
     def get_image(self, gallery):
         return settings.BASE_URL + settings.MEDIA_URL + str(gallery.image)
