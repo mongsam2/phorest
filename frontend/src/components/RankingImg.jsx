@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ranking1 from '../assets/ranking_first.png';
-import ranking2 from '../assets/ranking_second.png';
-import ranking3 from '../assets/ranking_third.png';
-import ranking4 from '../assets/ranking_fourth.png';
-import ranking5 from '../assets/ranking_five.png';
-import ranking6 from '../assets/ranking_sixth.png';
+import rankingShadow from '../assets/ranking_shadow.png';
 import axios from 'axios';
 import '../styles/RankingImg.css';
 
@@ -45,13 +40,17 @@ export default function RankingImg({ count }) {
 }
 
 function RankingImgBox({ index, ranking }) {
-    const img = [ranking1, ranking2, ranking3, ranking4, ranking5, ranking6];
     return (
         <div className="rankingImg-box">
-          <img src={img[index]} className='best-ranking-number' alt={`Ranking`} />
-          <img src={`http://${ranking.image}`} alt="" className="best-ranking" />
-          <img src={`http://${ranking.profile_image}`} alt="" className="profile-img" />
-          <p className='best-ranking-p'>{ranking.title || '임시 글쓰기'}</p>
+            <div className="number-container">
+                <p className='best-ranking-number'>{index + 1}</p>
+            </div>
+            <div className='ranking-box-container'>
+            <img src={rankingShadow} alt="" className="best-ranking-shadow" />
+            <img src={`http://${ranking.image}`} alt="" className="best-ranking" />
+            <img src={`http://${ranking.profile_image}`} alt="" className="profile-img" />
+            <p className='best-ranking-p'>{ranking.title || '임시 글쓰기'}</p>
+        </div>
         </div>
     );
 }

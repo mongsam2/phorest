@@ -1,31 +1,57 @@
-import temporal from '../assets/ranking-pet-filter.svg';
-import ranking1 from '../assets/ranking_first.png';
-import ranking2 from '../assets/ranking_second.png';
-import ranking3 from '../assets/ranking_third.png';
-import ranking4 from '../assets/ranking_fourth.png';
-import ranking5 from '../assets/ranking_five.png';
-import ranking6 from '../assets/ranking_sixth.png';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import rankingShadow from '../assets/ranking_shadow.png';
 import '../styles/RankingImg.css';
 
-function GoodsRankingBox({ index }) {
-    const img = [ranking1, ranking2, ranking3, ranking4, ranking5, ranking6];
+const BASE_URL = "http://localhost:8000";
+
+const GoodsRankingBox = ({ index }) => {
+    const [ranking, setRanking] = useState([]); 
+
+    // 상품 순위 데이터를 가져오는 비동기 함수
+    const fetchGoodsRanking = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/api/goods/ranking`);
+            if (Array.isArray(response.data)) {
+                setRanking(response.data); // 배열로 설정
+            } else {
+                console.error("응답이 배열이 아닙니다:", response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching ranking data:", error);
+        }
+    };
+    
+    useEffect(() => {
+        fetchGoodsRanking(); 
+    }, []);
+
+    // 데이터가 로드되지 않았을 경우 로딩 상태 처리
+    if (!ranking) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="rankingImg-box">
-            <img src={img[index]} className='best-ranking-number'/>
-            <img src={temporal} alt="" className="best-ranking" />
-            <img src={temporal} alt="" className="profile-img"/>
-            <p className='best-ranking-p'>임시 글쓰기</p>
+            <div className="number-container">
+                <p className='best-ranking-number'>{index + 1}</p>
+            </div>
+            <div className='ranking-box-container'>
+                <img src={rankingShadow} alt="Ranking Shadow" className="best-ranking-shadow" />
+                <img src={`http://${ranking[index]?.image}`} alt="Best Ranking" className="best-ranking" />
+            </div>
         </div>
     );
-}
+};
 
-export default function GoodsRanking({count}) {
+const GoodsRanking = ({ count }) => {
     return (
         <div className="rankingImg-wrap">
             {Array.from({ length: count }, (_, index) => (
-                <GoodsRankingBox key={index} index={index}/>
+                <GoodsRankingBox key={index} index={index} />
             ))}
         </div>
     );
-}
+};
+
+export default GoodsRanking;

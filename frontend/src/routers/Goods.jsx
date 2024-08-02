@@ -61,7 +61,7 @@ export default function Goods() {
                 )}
 
                 <div className="Goods-main-goods">
-                    <GoodsImg />
+                    <GoodsImg list = {goodsFilterButtons} selectedSort={selectedSort} />
                 </div>
             </main>
 

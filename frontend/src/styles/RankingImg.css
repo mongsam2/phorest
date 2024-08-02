@@ -5,63 +5,92 @@
   }
 
 .rankingImg-wrap {
-    height: 500px;
+    height: 440px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap : 4%;
-    margin-top : 5%;
+    gap : 5%;
+    margin-top : 2%;
     row-gap : 10%;
 }
 
 .rankingImg-box {
-    height: 50%;
-    width: 28%;
+    aspect-ratio: 11/ 6;
+    width: 27%;
     background-color: #D9D9D9;
     display: flex;
     position: relative;
     border-radius: 10px;
+    overflow: visible; /* 부모 요소는 overflow hidden 유지 */
+}
+
+.number-container {
+    position: absolute; /* 절대 위치로 변경 */
+    overflow: visible; /* 자식 요소가 잘리지 않도록 조정 */
+    top: -45%; /* 적절한 위치로 조정 */
+    left: 5%;
+    z-index: 3;
 }
 
 .best-ranking-number {
-    position: absolute;
+    color: #FFF;
+    text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); /* 그림자 값 조정 */
     font-size: 104px;
-    color : #FFF;
-    z-index: 0;
-    top : -22%;
-    left : 3%;
-    text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.30);
     font-style: normal;
     font-weight: 700;
-    line-height: 70px;
+    line-height: 70px; 
     letter-spacing: -1px;
     font-family: "Helvetica Condensed Black Oblique";
-
+    z-index: 2; /* 텍스트의 z-index를 높여서 이미지 위에 위치 */
 }
 
-.best-ranking {
+.ranking-box-container {
+    position: relative;
+    overflow: hidden; /* 다른 요소는 숨기기 */
     height: 100%;
     width: 100%;
     border-radius: 10px;
 }
 
+.best-ranking {
+    position: absolute;
+    top: -4%;
+    left: -11%;
+    width: 121.3%;
+    height: 124%;
+    border-radius: 10px;
+}
+
+.best-ranking-shadow {
+    position: absolute;
+    top: -0.1%;
+    left: -1%;
+    width: 102%;
+    height: 100%;
+    border-radius: 0px;
+    z-index: 2;
+}
 
 .profile-img {
     position: absolute;
-    top : 73%;
+    height: 12%;
+    width: 8%;
+    border: 1px solid black;
+    border-radius: 48%;
+    top: 73%;
     left: 8%;
+    z-index: 3;
 }
-
 
 .best-ranking-p {
     position: absolute;
-    top: 69%;
-    left: 22%;
+    top: 62%;
+    left: 20%;
     color: #FFFFFF;
     font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
-    
+    z-index: 3;
 }

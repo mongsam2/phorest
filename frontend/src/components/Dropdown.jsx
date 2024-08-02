@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Dropdown.css';
 
 export default function Dropdown({ onSortChange, selectedSort }) {
-    const sortOptions = ['최신순', '추천순', '좋아요순'];
+    const sortOptions = ['최신순', '추천순'];
 
     const handleClick = (option) => {
         onSortChange(option);

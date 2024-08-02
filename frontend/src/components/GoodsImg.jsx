@@ -1,34 +1,55 @@
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'; 
-
+import axios from 'axios';
 import temporal from '../assets/ranking-pet-filter.svg';
-import sample from '../assets/mainPhoto1.png';
 import '../styles/GoodsImg.css';
 
-function GoodsImgBox({ index }) {
+const BASE_URL = "http://localhost:8000";
+
+function GoodsImgBox({ key, image, name, price, page }) {
     const navigate = useNavigate(); 
 
+
     const handleClick = () => {
-        navigate('/goodsbuy', { state: { imgSrc: temporal } }); 
+        navigate('/goodsbuy', { state: { imgSrc: image, itemName: name, itemPrice: price } }); 
     };
 
     return (
         <div>
             <button className="goodsImg-box" onClick={handleClick}> 
-                <img src={temporal} alt="" className="best-goods" />
+                <img src={`http://${image}`} alt="" className="best-goods-image" />
             </button>
             <div>
-                <p className='best-goods-description'>[2월 1위 상품] 다이브투 패브릭 포스터</p>
-                <p className='best-goods-price'>15,000원</p>
+                <p className='best-goods-description'>{name}</p>
+                <p className='best-goods-price'>{price}</p>
             </div>
         </div>
     );
 }
 
-export default function GoodsImg() {
+export default function GoodsImg({list, selectedSort}) {
+    const [goods, setGoods] = useState([]);
+    const fetchGoods= async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/api/goods?category=반려동물&page=1&sort=${selectedSort}`);
+            if (Array.isArray(response.data)) {
+                setGoods(response.data); 
+
+            } else {
+                console.error("응답이 배열이 아닙니다:", response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching ranking data:", error);
+        }
+    };
+    
+    useEffect(() => {
+        fetchGoods(); 
+    }, []);
     return (
         <div className="goodsImg-wrap">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
-                <GoodsImgBox key={index} />
+            {goods.map((item) => (
+                <GoodsImgBox key={1} image={item.image} name={item.name} price = {item.price} page={1} />
             ))}
         </div>
     );
