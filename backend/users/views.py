@@ -13,6 +13,9 @@ from rest_framework.exceptions import ParseError, AuthenticationFailed, NotAuthe
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 
+import requests
+from django.shortcuts import redirect
+from django.conf import settings
 # Create your views here.
 class Users(APIView):
     
@@ -83,3 +86,55 @@ class LikeGalleries(APIView):
         like_gallery = Gallery.objects.filter(like_users=request.user)[(page-1)*size:page*size]
         serializer = GallerySmallSerializer(like_gallery, many=True)
         return Response(serializer.data)
+    
+class NaverLogin(APIView):
+
+    def get(self, request):
+        data = {
+            "response_type": "code",
+            "client_id": "haPvI0_b0I62nZAD5CM5",
+            "redirect_uri": "http://localhost:8000/naver-login",
+            "state": settings.SECRET_KEY
+        }
+
+        url = (
+            f"https://nid.naver.com/oauth2.0/authorize?"
+            f"response_type={data['response_type']}&"
+            f"client_id={data['client_id']}&"
+            f"state={data['state']}&"
+            f"redirect_uri={data['redirect_uri']}"
+        )
+
+        # Redirect the user to the Naver login URL
+        return redirect(url)
+    
+class NaverLoginCallbackView(APIView):
+    def get(self, request):
+        code = request.query_params["code"]
+        state = request.query_params["state"]
+        print(code, state)
+
+        if not code or state != settings.SECRET_KEY:
+            return Response({"error": "Invalid state or code"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        token_url = "https://nid.naver.com/oauth2.0/token"
+        data = {
+            "grant_type": "authorization_code",
+            "client_id": "haPvI0_b0I62nZAD5CM5",
+            "client_secret": "ZafQcEOUbH",
+            #"redirect_uri": "http://localhost:8000/naver-login",
+            "code": code,
+            "state": state
+        }
+        
+        response = requests.post(token_url, data=data)
+        if response.status_code == 200:
+            token_info = response.json()
+            user_info_url = "https://openapi.naver.com/v1/nid/me"
+            headers = {
+                "Authorization": token_info["token_type"] + " " + token_info["access_token"]
+            }
+            user_info_response = requests.get(user_info_url, headers=headers).json()
+            return Response(user_info_response, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": token_info.error}, status=status.HTTP_400_BAD_REQUEST)
