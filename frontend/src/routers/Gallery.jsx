@@ -16,7 +16,7 @@ import bgImg2 from "../assets/bgImg2.png";
 import useScroll from "../utils/useScroll";
 import profileImg from "../assets/profileImg.png";
 
-const Gallery = (type, category) => {
+const Gallery = ({type, category}) => {
   const [infoBoxHovered, setInfoBoxHovered] = useState(false);
   const outerDivRef = useRef();
   const { isFullscreen, triggerFull, exitFull } = useFullscreen(outerDivRef);
@@ -35,7 +35,6 @@ const Gallery = (type, category) => {
       throw error;
     }
   };
-
 
   useEffect(() => {
     setPageLength(5);
@@ -122,10 +121,23 @@ const Gallery = (type, category) => {
   const handleFullscreen = () => {
     const { scrollTop } = outerDivRef.current;
     triggerFull(scrollTop);
+    toggleFullscreenClass(true);
   };
   const handleFullscreenExit = () => {
     const { scrollTop } = outerDivRef.current;
     exitFull(scrollTop);
+    toggleFullscreenClass(false);
+  };
+
+  const toggleFullscreenClass = (isFull) => {
+    const bgImages = document.querySelectorAll(`.${styles.bgImg}`);
+    bgImages.forEach((bgImage) => {
+      if (isFull) {
+        bgImage.classList.add(styles.fullscreen);
+      } else {
+        bgImage.classList.remove(styles.fullscreen);
+      }
+    });
   };
 
   return (
@@ -155,13 +167,13 @@ const Gallery = (type, category) => {
         <div className={styles.sideBtns}>
           {isFullscreen ? (
             <RoundButton
-              onClick={exitFull}
+              onClick={handleFullscreenExit}
               imageSrc={zoomOutIcon}
               alt="Fullscreen Off Button"
             />
           ) : (
             <RoundButton
-              onClick={triggerFull}
+              onClick={handleFullscreen}
               imageSrc={zoomInIcon}
               alt="Fullscreen On Button"
             />
