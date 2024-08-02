@@ -27,6 +27,17 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+}
+.bgGradationFilter {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
@@ -35,8 +46,8 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 40%;
-  height: 250%;
+  width: 60%;
+  height: 100%;
   position: absolute;
   top: 20%;
   left: 50%;
@@ -65,14 +76,6 @@
   z-index: 3;
   width: 10%;
 }
-.enterButton:active {
-  transform: translateY(4px); /* 버튼이 눌리는 느낌을 주기 위해 위치를 이동 */
-}
-
-.enterButton:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 눌렸을 때 그림자 효과 */
-}
-
 
 .enterButton img {
   width: 100%;

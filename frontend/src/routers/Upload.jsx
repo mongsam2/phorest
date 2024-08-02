@@ -7,6 +7,7 @@ import PhotoGrid from "../components/PhotoGrid";
 import UploadChangeButton from "../components/UploadChangeButton";
 import PhotoMiniscreen from "../components/PhotoMiniscreen";
 import BgMiniscreen from "../components/BgMiniscreen";
+import HashtagInput from "../components/HashtagInput";
 
 import mainPhoto from "../assets/mainPhoto1.png";
 import squareBg from "../assets/square-empty-bg.png";
@@ -23,13 +24,13 @@ const Upload = () => {
   const maxLength = 20;
   const title = useInput2("(제목을 지어주세요)", null, maxLength);
   const currentDate = useDate();
-
+  const [hashtags, setHashtags] = useState([]);
   const [selectedPhotoType, setSelectedPhotoType] = useState("photo");
   const [customPageIndex, setCustomPageIndex] = useState(0);
   const [uploadImage, setUploadImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
 
-  const photos = Array(12).fill(squareBg);
+  const photos = Array(8).fill(squareBg);
 
   const handleInfoBoxHover = () => {
     setInfoBoxHovered(true);
@@ -90,6 +91,12 @@ const Upload = () => {
     };
     reader.readAsDataURL(selectedFile);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 게시글과 해시태그 제출하는 로직 작성하기.
+    console.log("Post submitted with hashtags:", hashtags);
+  };
+
 
   const bgImgRef = useHover2(handleBgImgHover, handleBgImgHoverOut);
   const photoRef = useHover2(handlePhotoHover, handlePhotoHoverOut);
@@ -204,6 +211,12 @@ const Upload = () => {
                 onPhotoClick={handleCellClick}
               />
             )}
+          </div>
+          <div className={styles.submitBox}>
+            <form onSubmit={handleSubmit}>
+              <HashtagInput hashtags={hashtags} setHashtags={setHashtags} />
+              <button type="submit">업로드</button>
+            </form>
           </div>
         </div>
       )}

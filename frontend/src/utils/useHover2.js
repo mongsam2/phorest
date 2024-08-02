@@ -29,3 +29,21 @@ const useHover = (onHover, onHoverOut) => {
 };
 
 export default useHover;
+
+// 사용법 (여기에 HoverOut 메소드만 추가하면 된다)
+// import useClick from "./useClick";
+// import useHover from "./useHover";
+// function App() {
+//   const sayHello = () => console.log("hello");
+//   const refName1 = useClick(sayHello);
+//   const refName2 = useHover(sayHello);
+
+//   return (
+//     <div className="App">
+//       <h1 ref={refName1}>Click me!</h1>
+//       <h1 ref={refName2}>Hover me!</h1>
+//     </div>
+//   );
+// }
+
+// export default App;
