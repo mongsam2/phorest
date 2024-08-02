@@ -31,6 +31,8 @@ class GalleryListSerializer(ModelSerializer):
     
     def get_like(self, gallery):
         request = self.context["request"]
+        if not request.user.is_authenticated:
+            return False
         if request.user.like_gallery.filter(id=gallery.id).exists():
             return True
         else:

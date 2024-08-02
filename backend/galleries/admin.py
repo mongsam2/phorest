@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Gallery
+from .models import Gallery, Hashtag
 from users.admin import LikeGalleryInline
 
 # Register your models here.
@@ -16,3 +16,7 @@ class GalleryAdmin(admin.ModelAdmin):
         "like_count",
         "weekly_like"
     )
+
+@admin.register(Hashtag)
+class HashtagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
