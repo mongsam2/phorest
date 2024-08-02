@@ -27,7 +27,7 @@
 .bgImg {
   width: 100%;
   height: 100%;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border: dashed 3px gray;
@@ -36,10 +36,10 @@
 }
 
 .bgImgHovered {
-  border-color: blue;
+  border-color: black;
 }
 
-.emptyPhoto{
+.emptyPhoto {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -50,7 +50,7 @@
   text-align: center;
   align-content: center;
   font-size: 20px;
-  color: #ACACAC;
+  color: #acacac;
 }
 
 .mainPhoto {
@@ -67,7 +67,7 @@
 }
 
 .mainPhotoHovered {
-  border-color: blue;
+  border-color: black;
 }
 
 .mainPhoto img {
@@ -83,7 +83,7 @@
   width: 500px;
   max-width: 40%;
   height: 110px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: dashed 3px gray;
   opacity: 0.5;
   background: rgba(0, 0, 0, 0.5);
@@ -96,7 +96,7 @@
 
 .infoBox.hovered {
   opacity: 0.95;
-  border-color: blue;
+  border-color: black;
 }
 
 .infoBox .userImage {
@@ -161,7 +161,8 @@
 .custom_head,
 .custom_body,
 .custom_body_upload,
-.custom_foot {
+.custom_foot,
+.submitBox {
   background-color: white;
   border: none;
   display: flex;
@@ -205,7 +206,7 @@
 }
 
 .custom_foot {
-  height: 40%;
+  height: 25%;
   padding-bottom: 10%; /* 마지막 섹션은 여백 제거 */
   padding-left: 4%;
   padding-right: 4%;
@@ -255,4 +256,11 @@
   font-size: 20px;
   color: white;
   white-space: nowrap;
+}
+
+.submitBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* 높이는 필요에 따라 조정 */
 }

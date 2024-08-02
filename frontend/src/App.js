@@ -9,9 +9,9 @@ import Goods from "./routers/Goods";
 import Main from "./routers/Main";
 import Upload from "./routers/Upload";
 import GoodsBuy from "./routers/GoodsBuy";
-import GoodsImg from './routers/GoodsBuy'; 
-import "./styles/App.css";
+import PostWithHashtags from "./routers/Test";
 
+import "./styles/App.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
