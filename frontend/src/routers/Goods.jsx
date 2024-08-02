@@ -10,7 +10,7 @@ import array_drop_up from '../assets/arrow_drop_up.svg';
 
 import Foot from '../components/Foot.jsx';
 import GoodsImg from '../components/GoodsImg.jsx';
-import RankingImg from '../components/RankingImg';
+import GoodsRanking from '../components/GoodsRanking';
 import FilterButton from '../components/FilterButton.jsx';
 import Dropdown from '../components/Dropdown.jsx';
 
@@ -44,14 +44,14 @@ export default function Goods() {
 
             <main>
                 <div className="Goods-main-best">
-                    <RankingImg count={3} />
+                    <GoodsRanking count={3} />
                 </div>
 
                 <div className="goods-filter">
                     <FilterButton filterButtons={goodsFilterButtons} />
                 </div>
                 <div className='goods-sort' onClick={() => setView(!view)}>
-                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400' }}>
+                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400'}}>
                         정렬 방식: <span style={{ color: '#000', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '500' }}>{selectedSort}</span>
                     </p>
                     {view ? <img src={array_drop_up} alt="dropdown up" /> : <img src={array_drop_down} alt="dropdown down" />}

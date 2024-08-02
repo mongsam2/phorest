@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_URL = "localhost:8000"
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,19 +41,19 @@ INSTALLED_APPS = [
 
     # thrid party
     'rest_framework',
+    'corsheaders',
 
     # apps
     'backgrounds.apps.BackgroundsConfig',
     'categories.apps.CategoriesConfig',
-    'categorytypes.apps.CategorytypesConfig',
     'galleries.apps.GalleriesConfig',
-    'productimages.apps.ProductimagesConfig',
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
     'winners.apps.WinnersConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,3 +135,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#User
+AUTH_USER_MODEL = "users.User"
+
+# Media
+MEDIA_ROOT = "uploads"
+MEDIA_URL = "uploads/"
+
+# CORS 설정
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]

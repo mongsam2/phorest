@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import goodsBuyplus from '../assets/goodsBuy-plus.svg';
 import goodsBuyminus from '../assets/goodsBuy-minus.svg';
+import Navbar from '../components/navbar.js';
 
 import '../styles/GoodsBuy.css';
 
@@ -9,22 +10,31 @@ export default function GoodsBuy(props) {
     const location = useLocation();
     const { imgSrc } = location.state || {};
     const [count, setCount] = useState(1);
+    const pricePerItem = 15000;
+
+    function handleBuy(event) {
+        alert(`${event.currentTarget.value}개 구매되었습니다.`);
+    }
 
     function handleValue(event) {
         const value = Number(event.currentTarget.value);
         if (value === 1) {
-            setCount(prevCount => prevCount + 1); // 이전 상태 기반으로 증가
+            setCount(prevCount => prevCount + 1);
             console.log("+");
         } else if (value === 0 && count > 1) {
-            setCount(prevCount => prevCount - 1); // 이전 상태 기반으로 감소
+            setCount(prevCount => prevCount - 1);
             console.log("-");
         }
     }
 
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
+    };
+
     return (
         <div className="GoodsBuy-wrap">
-            <header>
-                {/* 헤더 내용 */}
+            <header className='GoodsBuy-header'>
+                <Navbar />
             </header>
             <main className='GoodsBuy-main'>
                 <div className='GoodsBuy-left'>
@@ -35,7 +45,7 @@ export default function GoodsBuy(props) {
                     <div className='GoodsBuy-description'>
                         <p className='GoodsBuy-producer'>글레이즈드 도넛</p>
                         <p className='GoodsBuy-introduction'>[2월 1위 상품] 다이브투 패브릭 포스터</p>
-                        <p className='GoodsBuy-introduction'>15,000원</p>
+                        <p className='GoodsBuy-introduction-price'>{formatPrice(pricePerItem)}</p>
                     </div>
                     <div className='GoodsBuy-line'></div>
                     <div className='GoodsBuy-countBox'>
@@ -48,14 +58,14 @@ export default function GoodsBuy(props) {
                             <button className="plus-minus" onClick={handleValue} value='0' disabled={count <= 1}>
                                 <img src={goodsBuyminus} alt='마이너스기호' />
                             </button>
-                            <span className='GoodsBuy-countPrice'>{count * 15000}원</span>
+                            <span className='GoodsBuy-countPrice'>{formatPrice(count * pricePerItem)}</span>
                         </div>
                     </div>
                     <div className='GoodsBuy-totalPrice-box'>
                         <div className='GoodsBuy-price-description'>총 가격</div>
-                        <div className='GoodsBuy-totalPrice'>{count * 15000}원</div>
+                        <div className='GoodsBuy-totalPrice'>{formatPrice(count * pricePerItem)}</div>
                     </div>
-                    <button className='GoodsBuy-button'>
+                    <button className='GoodsBuy-button' onClick={handleBuy} value={count}>
                         <p className='GoodsBuy-button-p'>바로 구매하기</p>
                     </button>
                 </div>
