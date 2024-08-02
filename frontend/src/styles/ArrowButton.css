@@ -2,7 +2,7 @@
 .ArrowButton {
   width: 50px;
   height: 60px;
-  background-color: rgba(128, 128, 128, 0.5);
+  background: transparent;
   outline: none;
   cursor: pointer;
   display: flex;

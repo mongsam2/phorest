@@ -2,8 +2,6 @@
 :global(html, body) {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  height: 100%;
 }
 
 .containerMain {
@@ -27,6 +25,17 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+}
+.bgGradationFilter {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   z-index: 1;
 }
 
@@ -35,13 +44,13 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 40%;
-  height: 250%;
+  width: 50%;
+  height: 100%;
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 3;
 }
 
 .ArrowButtonsBox {
@@ -50,7 +59,7 @@
   align-items: center;
   gap: 70%;
   position: absolute;
-  bottom: 45%;
+  bottom: 35%;
   width: 100%;
   z-index: 2;
 }
@@ -63,16 +72,8 @@
   position: absolute;
   bottom: 10%;
   z-index: 3;
-  width: 10%;
+  width: 200px;
 }
-.enterButton:active {
-  transform: translateY(4px); /* 버튼이 눌리는 느낌을 주기 위해 위치를 이동 */
-}
-
-.enterButton:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 눌렸을 때 그림자 효과 */
-}
-
 
 .enterButton img {
   width: 100%;

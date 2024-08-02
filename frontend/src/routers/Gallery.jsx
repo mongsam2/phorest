@@ -1,8 +1,8 @@
 import styles from "../styles/Gallery.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useHover2 from "../utils/useHover2";
-import useFullscreen from "../utils/useFullscreen";
-import useFullscreen2 from "../utils/useFullscreen2";
+import useFullscreen from "../utils/useFullscreen3";
+import axios from "axios";
 
 import RoundButton from "../components/RoundButton";
 import zoomInIcon from "../assets/icon_zoom_in.png";
@@ -16,13 +16,100 @@ import bgImg2 from "../assets/bgImg2.png";
 import useScroll from "../utils/useScroll";
 import profileImg from "../assets/profileImg.png";
 
-const Gallery = () => {
-  const [sections, setSections] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const { y } = useScroll();
+const Gallery = (type, category) => {
   const [infoBoxHovered, setInfoBoxHovered] = useState(false);
-  const { element, isFullscreen, triggerFull, exitFull } = useFullscreen2();
+  const outerDivRef = useRef();
+  const { isFullscreen, triggerFull, exitFull } = useFullscreen(outerDivRef);
+  const BASE_URL = "http://local:8000";
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1); //1페이지부터 시작
+  const [pageLength, setPageLength] = useState(2);
+
+  const getPageData = async (page) => {
+    try {
+      const response = await axios.get(
+          `${BASE_URL}/api/galleries?type=${type}&category=${category}&page=${page}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
+  useEffect(() => {
+    setPageLength(5);
+  }, []);
+
+  useEffect(() => {
+    const wheelHandler = (e) => {
+      e.preventDefault();
+      const { deltaY } = e;
+      const pageHeight = window.innerHeight;
+
+      if (deltaY > 0) {
+        // Case1: 스크롤을 내리면
+        if (currentIndex === pageLength - 1) {
+          // Case1-1: 페이지의 마지막 사진이면
+          // 새로 데이터 불러오고
+          setCurrentPage((current) => current + 1); // 페이지 증가
+          setCurrentIndex(0); // 페이지의 첫 사진으로 index 이동
+          outerDivRef.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        } else {
+          // Case1-2: 그냥 다음 사진으로 내리기
+          setCurrentIndex((current) => current + 1); //다음 사진으로 인덱스 이동
+          outerDivRef.current.scrollTo({
+            // 화면 이동
+            top: pageHeight * (currentIndex + 1),
+            left: 0,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        // Case2: 스크롤을 올리면
+        if (currentIndex === 0 && currentPage === 1) {
+          // Case2-1: 제일 첫 페이지 가장 첫 사진
+          // 페이지와 사진 모두 그대로 유지
+          outerDivRef.current.scrollTo({
+            // 화면 이동을 현재 그대로
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        } else if (currentIndex === 0) {
+          // Case2-2: 이전 페이지로 돌아가기
+          // 서버로부터 이전페이지 받아오고 페이지 길이 다시 측정
+          setCurrentPage((current) => current - 1);
+          setCurrentIndex(pageLength - 1);
+          outerDivRef.current.scrollTo({
+            // 화면 이동
+            top: pageHeight * (pageLength - 1),
+            left: 0,
+            behavior: "smooth",
+          });
+        } else {
+          // Case2-3: 그냥 이전 사진으로 올리기
+          setCurrentIndex((current) => current - 1);
+          outerDivRef.current.scrollTo({
+            // 화면 이동
+            top: pageHeight * (currentIndex - 1),
+            left: 0,
+            behavior: "smooth",
+          });
+        }
+      }
+    };
+
+    const outerDivRefCurrent = outerDivRef.current;
+    outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+    return () => {
+      outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
+    };
+  }, [currentIndex, currentPage, pageLength]);
 
   const handleInfoBoxHover = () => {
     setInfoBoxHovered(true);
@@ -32,16 +119,24 @@ const Gallery = () => {
   };
   const infoBoxRef = useHover2(handleInfoBoxHover, handleInfoBoxHoverOut);
 
+  const handleFullscreen = () => {
+    const { scrollTop } = outerDivRef.current;
+    triggerFull(scrollTop);
+  };
+  const handleFullscreenExit = () => {
+    const { scrollTop } = outerDivRef.current;
+    exitFull(scrollTop);
+  };
+
   return (
-    <div className={styles.container} ref={element}>
-      <div
-        className={styles.bgImg}
-        style={{
-          backgroundImage: y < 100 ? `url(${bgImg})` : `url(${bgImg2})`,
-        }}
-      >
+    <div className={styles.outer} ref={outerDivRef}>
+      {/* 로딩이 끝났고 데이터가 있다면 개수에 맞게 컴포넌트 생성*/}
+      <div className={styles.inner}>
+        <div className={styles.bgImg}>
+          <img src={bgImg} alt="배경 이미지" />
+        </div>
         <div className={styles.mainPhoto}>
-          <img src={y < 100 ? mainPhoto : mainPhoto2} alt="Main Photo" />
+          <img src={mainPhoto} alt="메인 사진" />
         </div>
         <div
           ref={infoBoxRef}
@@ -50,11 +145,48 @@ const Gallery = () => {
           }`}
         >
           <div className={styles.userImage}>
-            <img src={profileImg} alt="User" />
+            <img src={profileImg} alt="User Profile Image" />
           </div>
           <div className={styles.textContent}>
             <div className={styles.title}>이곳은 제목입니다.</div>
-            <div className={styles.date}>2024. 7. 26</div>
+            <div className={styles.date}>2024.04.4</div>
+          </div>
+        </div>
+        <div className={styles.sideBtns}>
+          {isFullscreen ? (
+            <RoundButton
+              onClick={exitFull}
+              imageSrc={zoomOutIcon}
+              alt="Fullscreen Off Button"
+            />
+          ) : (
+            <RoundButton
+              onClick={triggerFull}
+              imageSrc={zoomInIcon}
+              alt="Fullscreen On Button"
+            />
+          )}
+          <RoundButton
+            onClick={triggerFull}
+            imageSrc={likeBlackIcon}
+            alt="Like Button"
+          />
+        </div>
+      </div>
+      <div className={styles.inner}>
+        <div className={styles.bgImg}>
+          <img src={bgImg2} alt="배경 이미지" />
+        </div>
+        <div className={styles.mainPhoto}>
+          <img src={mainPhoto2} alt="메인 사진" />
+        </div>
+        <div ref={infoBoxRef} className={styles.infoBox}>
+          <div className={styles.userImage}>
+            <img src={profileImg} alt="User Profile Image" />
+          </div>
+          <div className={styles.textContent}>
+            <div className={styles.title}>이곳은 제목입니다.</div>
+            <div className={styles.date}>2024.04.4</div>
           </div>
         </div>
         <div className={styles.sideBtns}>
