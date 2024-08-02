@@ -14,6 +14,7 @@ class Gallery(models.Model):
     common_background = models.ForeignKey("backgrounds.Background", on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey("categories.Category", on_delete=models.SET_NULL, null=True, blank=True, related_name="galleries")
     user = models.ForeignKey("users.User", on_delete=models.SET_NULL, null=True, blank=True, related_name="my_galleries")
+    hashtags = models.ManyToManyField("galleries.Hashtag", null=True, blank=True)
 
     def __str__(self):
         return f"{self.title} - {self.user}"
@@ -28,3 +29,9 @@ class Gallery(models.Model):
         start = now - timedelta(days=7)
         return UserGallery.objects.filter(gallery=self, date__gte=start).count()
     
+
+class Hashtag(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
