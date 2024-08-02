@@ -1,13 +1,6 @@
-body {
-  margin: 0;
-  overflow-y: hidden;
-}
-
 .outer::-webkit-scrollbar {
   display: none;
 }
-
-/* Gallery.css */
 
 .outer {
   display: flex;

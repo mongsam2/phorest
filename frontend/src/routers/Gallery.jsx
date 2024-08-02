@@ -2,7 +2,7 @@ import styles from "../styles/Gallery.module.css";
 import { useState, useEffect, useRef } from "react";
 import useHover2 from "../utils/useHover2";
 import useFullscreen from "../utils/useFullscreen3";
-import useAxios from "../utils/useAxios";
+import axios from "axios";
 
 import RoundButton from "../components/RoundButton";
 import zoomInIcon from "../assets/icon_zoom_in.png";
@@ -16,7 +16,7 @@ import bgImg2 from "../assets/bgImg2.png";
 import useScroll from "../utils/useScroll";
 import profileImg from "../assets/profileImg.png";
 
-const Gallery = () => {
+const Gallery = (type, category) => {
   const [infoBoxHovered, setInfoBoxHovered] = useState(false);
   const outerDivRef = useRef();
   const { isFullscreen, triggerFull, exitFull } = useFullscreen(outerDivRef);
@@ -24,6 +24,18 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1); //1페이지부터 시작
   const [pageLength, setPageLength] = useState(2);
+
+  const getPageData = async (page) => {
+    try {
+      const response = await axios.get(
+          `${BASE_URL}/api/galleries?type=${type}&category=${category}&page=${page}`
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 
   useEffect(() => {
     setPageLength(5);
