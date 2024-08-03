@@ -33,6 +33,7 @@ export default function Goods() {
     const [view, setView] = useState(false);
     const [selectedSort, setSelectedSort] = useState('최신순'); 
     const [selectedCategory, setSelectedCategory] = useState('all-button'); 
+    const list = ['최신순', '추천순'];
 
     const handleSortChange = (sortOption) => {
         setSelectedSort(sortOption);
@@ -65,7 +66,7 @@ export default function Goods() {
                     {view ? <img src={array_drop_up} alt="dropdown up" /> : <img src={array_drop_down} alt="dropdown down" />}
                 </div>
                 {view && (
-                    <Dropdown onSortChange={handleSortChange} selectedSort={selectedSort} />
+                    <Dropdown onSortChange={handleSortChange} selectedSort={selectedSort} list = {list}/>
                 )}
 
                 <div className="Goods-main-goods">

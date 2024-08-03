@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles/Dropdown.css';
 
-export default function Dropdown({ onSortChange, selectedSort }) {
-    const sortOptions = ['최신순', '추천순'];
+export default function Dropdown({ onSortChange, selectedSort, list }) {
+    const sortOptions = list
 
     const handleClick = (option) => {
         onSortChange(option);
