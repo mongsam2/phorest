@@ -71,20 +71,22 @@
     display: flex;
     margin-top: 2%;
     width: 14%;
+    position: relative;
 }
 
+
+.Search-dropdown {
+    position: absolute;
+    top: 50%;
+    left : 0%;
+    color : #000;
+    
+}
 .Search-view-img {
     height: 32px;
     width: 32px;
-    margin-top : 8.5%;
 }
 
-.dropdown {
-    position: absolute;
-    top : 80%;
-    right : 3%;
-    box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.07);
-}
 .Search-bottom-bottom-rectangle {
     display: flex;
     justify-content: center;
@@ -118,6 +120,7 @@
     
 }
 
+
 .Search-profile-img {
     display: flex;
     align-items: center;
@@ -127,6 +130,9 @@
     background-color: #D9D9D9;
 }
 
+.Search-description-p {
+    margin-top :7%;
+}
 
 .Search-description-middle {
     display: flex;
@@ -139,3 +145,9 @@
 .Search-favorite-icon {
     margin-right : 2%;
 }
+
+.Search-count {
+    margin-top : 5%;
+}
+
+

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useState, useRef } from 'react';
 import Dropdown from '../components/Dropdown';
 import '../styles/Search.css';
+import InputModal from '../components/InputModal';
 
 import array_drop_down from '../assets/arrow_drop_down.svg';
 import array_drop_up from '../assets/arrow_drop_up.svg';
@@ -14,6 +14,8 @@ export default function Search() {
     const [searchContent, setSearchContent] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [selectedSort, setSelectedSort] = useState('최신순'); 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const inputRef = useRef(null);
     const list = ['최신순', '추천순', '좋아요순'];
 
     const handleSortChange = (sortOption) => {
@@ -27,6 +29,20 @@ export default function Search() {
 
     const handleSearch = () => {
         setSearchContent(inputValue);
+        setIsModalOpen(false);
+    };
+
+    const handleInputClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setSearchContent(suggestion); 
+        setInputValue(suggestion); 
     };
 
     return (
@@ -40,11 +56,13 @@ export default function Search() {
                         className='Search-input' 
                         onChange={handleInput} 
                         value={inputValue} 
+                        onFocus={handleInputClick}
+                        ref={inputRef} 
                     />
                 </div>
                 <button className='Search-button'>
-                    <img src={tune} alt="" className="" />
-                    <p style={{fontSize:'21px'}}>필터</p>
+                    <img src={tune} alt="" />
+                    <p style={{fontSize:'21px', marginTop : '11%'}}>필터</p>
                 </button>
             </div>
             <div className='Search-bottom-box'>
@@ -53,11 +71,11 @@ export default function Search() {
                     <div className='Search-sort' onClick={() => setView(!view)}>
                         <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.2rem', fontStyle: 'normal', fontWeight: '400'}}>
                             정렬 방식: <span style={{ color: '#000', fontSize: '1.2rem', fontStyle: 'normal', fontWeight: '500' }}>{selectedSort}</span>
+                            {view && (
+                            <Dropdown className="Search-dropdown" onSortChange={handleSortChange} selectedSort={selectedSort} list={list} />
+                            )}
                         </p>
                         {view ? <img src={array_drop_up} alt="dropdown up" className='Search-view-img' /> : <img src={array_drop_down} alt="dropdown down" className='Search-view-img' />}
-                        {view && (
-                            <Dropdown className="dropdown" onSortChange={handleSortChange} selectedSort={selectedSort} list={list} />
-                        )}
                     </div>
                 </div>
                 <div className='Search-bottom-bottom-rectangle'>
@@ -71,10 +89,10 @@ export default function Search() {
                                     <div className='Search-description-box'>
                                         <img src={favorite} alt="" className='Search-profile-img'></img>
                                         <div className='Search-description-middle'>
-                                            <p className='best-goods-description'>닉네임</p>
+                                            <p className='Search-description-p'>닉네임</p>
                                             <img src={favorite} alt="" className='Search-favorite-icon' />
                                         </div>
-                                        <p>0</p>
+                                        <p className='Search-count'>0</p>
                                     </div>
                                 </div>
                             );
@@ -82,6 +100,16 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-        </div>
+            
+            <InputModal 
+    isOpen={isModalOpen} 
+    inputValue={inputValue} 
+    onClose={closeModal} 
+    suggestions={['햄스터', '산', '바다']} 
+    onSuggestionClick={handleSuggestionClick} 
+    setInputValue={setInputValue} 
+    style={{ position: 'absolute', top: `${inputRef.current ? inputRef.current.getBoundingClientRect().bottom + window.scrollY : 0}px`, left: '0' }} />
+
+    </div>
     );
 }
