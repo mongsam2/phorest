@@ -6,7 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import Signup from "./pages/Signup";
 import Gallery from "./routers/Gallery";
 import Ranking from "./routers/Ranking";
