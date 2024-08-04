@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/InputModal.module.css'; 
+import style from '../styles/InputModal.module.css'; 
 
 const InputModal = ({ isOpen,  onClose, suggestions, onSuggestionClick, setInputValue }) => {
     if (!isOpen) return null;
@@ -10,17 +10,17 @@ const InputModal = ({ isOpen,  onClose, suggestions, onSuggestionClick, setInput
     }
 
     return (
-        <div className={style.modal-overlay}>
-            <div className={style.modal-content}>
+        <div className={style.modalOverlay}>
+            <div className={style.modalContent}>
                 <h2>추천 검색어</h2>
                 <ul style={{marginTop : '2%'}}>
                     {suggestions.map((suggestion, index) => (
-                        <li className={style.modal-content-li} key={index} onClick={() => handleModal(suggestion)}>
+                        <li className={style.modalContentLi} key={index} onClick={() => handleModal(suggestion)}>
                             <p>→</p>{suggestion}
                         </li>
                     ))}
                 </ul>
-                <button className={style.modal-content-button} onClick={onClose}>닫기</button>
+                <button className={style.modalContentButton} onClick={onClose}>닫기</button>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-.modal-overlay {
+.modalOverlay {
     position: fixed;
     top: 18%;
     margin-left: 3%; 
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.modal-content {
+.modalContent {
     height: 100%;
     padding: 20px;
     border-radius: 5px;
@@ -21,13 +21,13 @@
     z-index: 100;
 }
 
-.modal-content-li {
+.modalContentLi {
     list-style: none;
     display: flex;
     gap : 1%;
 }
 
-.modal-content-button {
+.modalContentButton {
     border: none;
     border-radius: 50px;
     font-size: 24px;
@@ -36,7 +36,7 @@
     padding-bottom: 0.3%;
 }
 
-.modal-content-button:hover {
+.modalContentButton:hover {
     background-color: #000;
     color: #FFF;
 }
