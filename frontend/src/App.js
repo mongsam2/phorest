@@ -14,6 +14,8 @@ import Goods from "./routers/Goods";
 import Main from "./routers/Main";
 import Upload from "./routers/Upload";
 import GoodsBuy from "./routers/GoodsBuy";
+import Search from "./routers/Search";
+import PostWithHashtags from "./routers/Test";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
@@ -40,6 +42,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </Router>
   );
