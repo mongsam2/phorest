@@ -24,16 +24,19 @@
 }
 
 .Search-input {
-    width: 100%;
+    width: 95%;
     border: none;
     border-radius: 50px;
     font-size: 25px;
     padding-left: 2%;
+    outline: none;
 }
 .Search-icon {
-    width: 5%;
+    width: 3%;
     height: 80%;
     margin-top : 0.4%;
+    border : none;
+    background-color: #FFF;
 }
 
 .Search-button {
@@ -99,9 +102,40 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 19rem;
 }
 
 .Search-img-box {
     aspect-ratio: 3.18/ 2.84;
     width: 75%;
+}
+
+.Search-description-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    
+}
+
+.Search-profile-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 13%;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+}
+
+
+.Search-description-middle {
+    display: flex;
+    width: 70%;
+    margin-left : 3%;
+    justify-content: space-between;
+}
+
+
+.Search-favorite-icon {
+    margin-right : 2%;
 }
