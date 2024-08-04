@@ -38,7 +38,6 @@ const TagList = styled.div`
   flex-wrap: wrap;
   margin-top: 5px;
   align-items: flex-start;
-  align-content: center;
   width: 90%;
 `;
 
@@ -46,23 +45,27 @@ const Tag = styled.span`
   background-color: transparent;
   border: 1px solid #d9d9d9;
   color: #000000;
-  padding: 10px 15px;
+  padding: 10px 15px 10px 15px;
   border-radius: 50px;
   margin-right: 10px;
   margin-bottom: 5px;
   display: flex;
-  align-items: center; /* Centering text vertically */
+  align-items: left;
   font-family: Noto Sans KR;
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
   letter-spacing: -1px;
+  align-items: center;
 `;
 
 const RemoveButton = styled.button`
   background: none;
   border: none;
+  color: black;
+  margin-left: 5px;
   cursor: pointer;
+  font-size: 14px;
 `;
 
 const HashTagInput = ({ initialHashtags, onHashtagsChange }) => {
@@ -141,6 +144,7 @@ const HashTagInput = ({ initialHashtags, onHashtagsChange }) => {
           </Tag>
         ))}
       </TagList>
+      
     </HashTagInputWrapper>
   );
 };

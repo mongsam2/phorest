@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import goodsBuyplus from '../assets/goodsBuy-plus.svg';
 import goodsBuyminus from '../assets/goodsBuy-minus.svg';
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 import '../styles/GoodsBuy.css';
 
 export default function GoodsBuy() {
