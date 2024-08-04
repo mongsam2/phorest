@@ -1,12 +1,84 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
+import checkedIcon from "../assets/radio_checked.png";
+import uncheckedIcon from "../assets/radio_unchecked.png";
+import HashTagInput from "./HashtagInput";
 
 const BootstrapModalWrapper = styled.div`
   @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 배치 */
+  width: 100%; /* 전체 너비를 사용 */
+  margin: auto;
+  margin-left: 45px; /* 왼쪽 여백 조정 */
+  padding: 10px 10px; /* 좌우 여백 조정 */
+  box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
+`;
+
+const RadioItem = styled.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 17%; /* 각 행에 5개의 항목 배치 */
+  box-sizing: border-box;
+  padding: 5px;
+  margin-bottom: 12px; /* 세로 간격 조정 */
+  margin-right: 18px; /* 오른쪽 여백 조정 */
+  div {
+    margin-left: 10px;
+    font-family: "Noto Sans KR";
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -1px;
+    text-align: left;
+    white-space: nowrap;
+  }
+`;
+const RadioInput = styled.input`
+  display: none;
+  &:checked + span > img {
+    content: url(${checkedIcon});
+  }
+`;
+
+const CustomRadio = styled.span`
+  display: flex;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+    content: url(${uncheckedIcon});
+  }
+`;
+
 const UploadDetailModal = (props) => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const [hashtags, setHashtags] = useState([]);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  const handleHashtagsChange = (newHashtags) => {
+    setHashtags(newHashtags);
+  };
+
+  const options = [
+    { value: "반려동물", label: "반려동물" },
+    { value: "바다", label: "바다" },
+    { value: "산", label: "산" },
+    { value: "캠핑", label: "캠핑" },
+    { value: "계절", label: "계절" },
+    { value: "캐릭터", label: "캐릭터" },
+    { value: "동물", label: "동물" },
+    { value: "사물", label: "사물" },
+    { value: "기타", label: "기타" },
+  ];
+
   return (
     <BootstrapModalWrapper>
       <Modal
@@ -16,17 +88,80 @@ const UploadDetailModal = (props) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            style={{
+              fontFamily: "Noto Sans KR",
+              fontSize: "24px",
+              fontWeight: "700",
+              lineHeight: "24px",
+              letterSpacing: "-1px",
+              textAlign: "left",
+              marginLeft: "30px",
+              padding: "10px",
+            }}
+          >
+            상세 정보 설정
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
+          <p
+            style={{
+              marginTop: "55px",
+              marginLeft: "55px",
+              fontFamily: "Noto Sans KR",
+              fontSize: "24px",
+              fontWeight: "700",
+              lineHeight: "24px",
+              letterSpacing: "-1px",
+              textAlign: "left",
+            }}
+          >
+            카테고리<span style={{ color: "#54C1FF" }}> (필수, 1개)</span>
           </p>
+          <Container>
+            {options.map((option, index) => (
+              <RadioItem key={index}>
+                <RadioInput
+                  type="radio"
+                  name="category"
+                  value={option.value}
+                  checked={selectedOption === option.value}
+                  onChange={handleOptionChange}
+                />
+                <CustomRadio>
+                  <img
+                    src={
+                      selectedOption === option.value
+                        ? checkedIcon
+                        : uncheckedIcon
+                    }
+                    alt={option.label}
+                  />
+                </CustomRadio>
+                <div>{option.label}</div>
+              </RadioItem>
+            ))}
+          </Container>
+
+          <p
+            style={{
+              marginTop: "70px",
+              marginLeft: "55px",
+              fontFamily: "Noto Sans KR",
+              fontSize: "24px",
+              fontWeight: "700",
+              lineHeight: "24px",
+              letterSpacing: "-1px",
+              textAlign: "left",
+            }}
+          >
+            태그<span style={{ color: "#54C1FF" }}> (선택, 3개까지)</span>
+          </p>
+          <HashTagInput
+            initialHashtags={hashtags}
+            onHashtagsChange={handleHashtagsChange}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
