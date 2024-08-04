@@ -21,13 +21,13 @@
     z-index: 100;
 }
 
-.modal-content li {
+.modal-content-li {
     list-style: none;
     display: flex;
     gap : 1%;
 }
 
-.modal-content button {
+.modal-content-button {
     border: none;
     border-radius: 50px;
     font-size: 24px;
@@ -36,7 +36,7 @@
     padding-bottom: 0.3%;
 }
 
-.modal-content button:hover {
+.modal-content-button:hover {
     background-color: #000;
     color: #FFF;
 }
