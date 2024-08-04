@@ -3,7 +3,7 @@
 }
 
 .outer {
-  height: calc(100vh - 80px);
+  /* height: calc(100vh - 80px); */
   margin-top: 80px;
   display: flex;
   flex-direction: column;
@@ -63,7 +63,7 @@
   left: 4%;
   width: 600px;
   max-width: 45%;
-  height: 65px;
+  height: 114px;
   padding: 25px 30px 25px 30px;
   border-radius: 10px;
   opacity: 0.5;

@@ -1,5 +1,7 @@
 import styles from "../styles/Upload.module.css";
 import { useState, useEffect } from "react";
+import UploadDetailModal from "../components/UploadDetailModal";
+
 import useHover2 from "../utils/useHover2";
 import useInput2 from "../utils/useInput2";
 import useDate from "../utils/useDate";
@@ -29,6 +31,7 @@ const Upload = () => {
   const [customPageIndex, setCustomPageIndex] = useState(0);
   const [uploadImage, setUploadImage] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+  const [modalShow, setModalShow] = useState(false);
 
   const photos = Array(8).fill(squareBg);
 
@@ -97,7 +100,6 @@ const Upload = () => {
     console.log("Post submitted with hashtags:", hashtags);
   };
 
-
   const bgImgRef = useHover2(handleBgImgHover, handleBgImgHoverOut);
   const photoRef = useHover2(handlePhotoHover, handlePhotoHoverOut);
   const infoBoxRef = useHover2(handleInfoBoxHover, handleInfoBoxHoverOut);
@@ -108,152 +110,152 @@ const Upload = () => {
   };
 
   return (
-    <div className={styles.containerUpload}>
-      <div className={styles.previewBox}>
-        <div className={styles.previewContainer}>
-          <div
-            ref={bgImgRef}
-            className={`${styles.bgImg} ${
-              bgImgHovered ? styles.bgImgHovered : ""
-            }`}
-            onClick={handleBgImgClick}
-            style={{
-              backgroundImage: `url(${bgImg})`,
-            }}
-          >
+    <>
+      <UploadDetailModal show={modalShow} onHide={() => setModalShow(false)} />
+      <div className={styles.containerUpload}>
+        <div className={styles.previewBox}>
+          <div className={styles.previewContainer}>
             <div
-              ref={photoRef}
-              className={`${styles.mainPhoto} ${
-                photoHovered ? styles.mainPhotoHovered : ""
+              ref={bgImgRef}
+              className={`${styles.bgImg} ${
+                bgImgHovered ? styles.bgImgHovered : ""
               }`}
-              onClick={handlePhotoClick}
+              onClick={handleBgImgClick}
+              style={{
+                backgroundImage: `url(${bgImg})`,
+              }}
             >
-              {imagePreview === "" ? (
-                <div className={styles.emptyPhoto}>
-                  <p>
-                    작품 변경하기 버튼을 클릭하여
-                    <br />
-                    이미지를 추가하세요.
-                  </p>
+              <div
+                ref={photoRef}
+                className={`${styles.mainPhoto} ${
+                  photoHovered ? styles.mainPhotoHovered : ""
+                }`}
+                onClick={handlePhotoClick}
+              >
+                {imagePreview === "" ? (
+                  <div className={styles.emptyPhoto}>
+                    <p>
+                      작품 변경하기 버튼을 클릭하여
+                      <br />
+                      이미지를 추가하세요.
+                    </p>
+                  </div>
+                ) : (
+                  <img src={imagePreview} alt="Main Photo" />
+                )}
+              </div>
+              <div
+                ref={infoBoxRef}
+                className={`${styles.infoBox} ${
+                  infoBoxHovered ? styles.hovered : ""
+                }`}
+                onClick={handleTitleClick}
+              >
+                <div className={styles.userImage}>
+                  <img src={profileImg} alt="User" />
                 </div>
+                <div className={styles.textContent}>
+                  {isEditingTitle ? (
+                    <input
+                      type="text"
+                      value={title.value}
+                      onChange={title.onChange}
+                      onKeyDown={title.onKeyDown}
+                      onBlur={handleTitleBlur}
+                      className={styles.titleInput}
+                      autoFocus
+                    />
+                  ) : (
+                    <div className={styles.title}>{title.value}</div>
+                  )}
+                  {title.error && (
+                    <div className={styles.error}>{title.error}</div>
+                  )}
+                  <div className={styles.date}>{currentDate}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {customPageIndex === 0 && (
+          <div className={styles.customBox}>
+            <div className={styles.custom_head}>
+              {selectedPhotoType === "photo" ? (
+                <p>작품 커스텀</p>
               ) : (
-                <img src={imagePreview} alt="Main Photo" />
+                <p>배경 커스텀</p>
               )}
             </div>
-            <div
-              ref={infoBoxRef}
-              className={`${styles.infoBox} ${
-                infoBoxHovered ? styles.hovered : ""
-              }`}
-              onClick={handleTitleClick}
-            >
-              <div className={styles.userImage}>
-                <img src={profileImg} alt="User" />
-              </div>
-              <div className={styles.textContent}>
-                {isEditingTitle ? (
-                  <input
-                    type="text"
-                    value={title.value}
-                    onChange={title.onChange}
-                    onKeyDown={title.onKeyDown}
-                    onBlur={handleTitleBlur}
-                    className={styles.titleInput}
-                    autoFocus
+            <div className={styles.custom_body}>
+              {selectedPhotoType === "photo" ? (
+                <>
+                  {imagePreview !== "" ? (
+                    <PhotoMiniscreen src={imagePreview} />
+                  ) : null}
+                  <UploadChangeButton
+                    text="작품 변경하기"
+                    onClick={handleChangePhotoClick}
                   />
-                ) : (
-                  <div className={styles.title}>{title.value}</div>
-                )}
-                {title.error && (
-                  <div className={styles.error}>{title.error}</div>
-                )}
-                <div className={styles.date}>{currentDate}</div>
+                </>
+              ) : (
+                <>
+                  <BgMiniscreen src={bgImg} />
+                  <UploadChangeButton
+                    text="배경 변경하기"
+                    onClick={handleChangeBgClick}
+                  />
+                </>
+              )}
+            </div>
+            <div className={styles.custom_foot}>
+              {selectedPhotoType === "bg" && (
+                <PhotoGrid
+                  photos={photos}
+                  selectedPhotoIndex={selectedPhotoIndex}
+                  onPhotoClick={handleCellClick}
+                />
+              )}
+            </div>
+            <div className={styles.nextButton}>
+              <button onClick={() => setModalShow(true)}>다음</button>
+            </div>
+          </div>
+        )}
+
+        {customPageIndex === 1 && selectedPhotoType === "photo" && (
+          <div className={styles.customBox}>
+            <div className={styles.custom_head}>
+              <button
+                className={styles.backButton}
+                onClick={handleBackButtonClick}
+              >
+                <img src={backButton} alt="Back" />
+              </button>
+              <p>작품 커스텀</p>
+            </div>
+            <div className={styles.custom_body_upload}>
+              <div>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  onChange={handleUploadFileChange}
+                  className={styles.fileInput}
+                />
+                <label htmlFor="fileInput" className={styles.customFileInput}>
+                  <img
+                    src={uploadIcon}
+                    alt="업로드 아이콘"
+                    className={styles.uploadIcon}
+                  />
+                  <p>이미지 업로드</p>
+                </label>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-      {customPageIndex === 0 && (
-        <div className={styles.customBox}>
-          <div className={styles.custom_head}>
-            {selectedPhotoType === "photo" ? (
-              <p>작품 커스텀</p>
-            ) : (
-              <p>배경 커스텀</p>
-            )}
-          </div>
-          <div className={styles.custom_body}>
-            {selectedPhotoType === "photo" ? (
-              <>
-                {imagePreview !== "" ? (
-                  <PhotoMiniscreen src={imagePreview} />
-                ) : null}
-                <UploadChangeButton
-                  text="작품 변경하기"
-                  onClick={handleChangePhotoClick}
-                />
-              </>
-            ) : (
-              <>
-                <BgMiniscreen src={bgImg} />
-                <UploadChangeButton
-                  text="배경 변경하기"
-                  onClick={handleChangeBgClick}
-                />
-              </>
-            )}
-          </div>
-          <div className={styles.custom_foot}>
-            {selectedPhotoType === "bg" && (
-              <PhotoGrid
-                photos={photos}
-                selectedPhotoIndex={selectedPhotoIndex}
-                onPhotoClick={handleCellClick}
-              />
-            )}
-          </div>
-          <div className={styles.submitBox}>
-            <form onSubmit={handleSubmit}>
-              <HashtagInput hashtags={hashtags} setHashtags={setHashtags} />
-              <button type="submit">업로드</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {customPageIndex === 1 && selectedPhotoType === "photo" && (
-        <div className={styles.customBox}>
-          <div className={styles.custom_head}>
-            <button
-              className={styles.backButton}
-              onClick={handleBackButtonClick}
-            >
-              <img src={backButton} alt="Back" />
-            </button>
-            <p>작품 커스텀</p>
-          </div>
-          <div className={styles.custom_body_upload}>
-            <div>
-              <input
-                type="file"
-                id="fileInput"
-                accept="image/*"
-                onChange={handleUploadFileChange}
-                className={styles.fileInput}
-              />
-              <label htmlFor="fileInput" className={styles.customFileInput}>
-                <img
-                  src={uploadIcon}
-                  alt="업로드 아이콘"
-                  className={styles.uploadIcon}
-                />
-                <p>이미지 업로드</p>
-              </label>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,10 @@
 import styles from "../styles/Gallery.module.css";
 import { useState, useEffect, useRef } from "react";
-import useHover2 from "../utils/useHover2";
-import useFullscreen from "../utils/useFullscreen3";
 import axios from "axios";
+import useHover2 from "../utils/useHover2";
+import useFullscreen from "../utils/useFullscreen4";
+import useScroll from "../utils/useScroll";
+
 
 import RoundButton from "../components/RoundButton";
 import zoomInIcon from "../assets/icon_zoom_in.png";
@@ -13,10 +15,9 @@ import mainPhoto from "../assets/mainPhoto1.png";
 import mainPhoto2 from "../assets/mainPhoto2.png";
 import bgImg from "../assets/bgImg1.png";
 import bgImg2 from "../assets/bgImg2.png";
-import useScroll from "../utils/useScroll";
 import profileImg from "../assets/profileImg.png";
 
-const Gallery = ({type, category}) => {
+const Gallery = ({ type, category }) => {
   const [infoBoxHovered, setInfoBoxHovered] = useState(false);
   const outerDivRef = useRef();
   const { isFullscreen, triggerFull, exitFull } = useFullscreen(outerDivRef);
@@ -28,7 +29,7 @@ const Gallery = ({type, category}) => {
   const getPageData = async (page) => {
     try {
       const response = await axios.get(
-          `${BASE_URL}/api/galleries?type=${type}&category=${category}&page=${page}`
+        `${BASE_URL}/api/galleries?type=${type}&category=${category}&page=${page}`
       );
       return response.data;
     } catch (error) {
@@ -140,9 +141,49 @@ const Gallery = ({type, category}) => {
     });
   };
 
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        // Fullscreen mode has been exited
+        setTimeout(() => {
+          outerDivRef.current.style.height = "calc(100vh - 80px)";
+        }, 0); // Small delay to ensure the fullscreen exit is complete
+      } else {
+        // Entered fullscreen mode
+        outerDivRef.current.style.height = "100vh";
+      }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "mozfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "MSFullscreenChange",
+        handleFullscreenChange
+      );
+    };
+  }, [isFullscreen]);
+
+  /////////RETURN/////////////////RETURN/////////////////RETURN/////////////////RETURN////////////////
   return (
-    <div className={styles.outer} ref={outerDivRef}>
-      {/* 로딩이 끝났고 데이터가 있다면 개수에 맞게 컴포넌트 생성*/}
+    <div
+      className={styles.outer}
+      ref={outerDivRef}
+      style={{ height: isFullscreen ? "100vh" : "calc(100vh - 80px)" }}
+    >
+      {/* 로딩이 끝났고 데이터가 있다면 개수에 맞게 컴포넌트 생성 */}
       <div className={styles.inner}>
         <div className={styles.bgImg}>
           <img src={bgImg} alt="배경 이미지" />

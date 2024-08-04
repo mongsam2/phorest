@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import Gallery from "./routers/Gallery";
 import Ranking from "./routers/Ranking";
@@ -9,22 +14,23 @@ import Goods from "./routers/Goods";
 import Main from "./routers/Main";
 import Upload from "./routers/Upload";
 import GoodsBuy from "./routers/GoodsBuy";
-import PostWithHashtags from "./routers/Test";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const NavbarSelector = () => {
+    const location = useLocation();
+    const navbarColorTheme =
+      location.pathname === "/" ? "transparent" : "normal";
+    return <Navbar isLoggedIn={isLoggedIn} colorTheme={navbarColorTheme} />;
+  };
+
   return (
-    // <div>
-    //   {/* <Ranking /> */}
-    //   {/* <Gallery /> */}
-    //   <Goods />
-    //   {/* <Main /> */}
-    //   {/* <GoodsBuy /> */}
-    // </div>
     <Router>
-      <Navbar />
+      <NavbarSelector />
       <Routes>
         <Route path="/" element={<Main />} />
         {/* <Route path="/navbar" element={<Navbar />} /> */}

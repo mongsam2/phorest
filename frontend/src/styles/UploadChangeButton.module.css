@@ -8,13 +8,12 @@
   color: #ffffff;
   margin-bottom: 10px;
   width: 100%;
-  font-size: 20px;
+  font-size: 24px;
   border: none;
   border-radius: 10px;
-  padding: 15px;
+  padding: 20px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.1s;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
 }
 .button:active {
   background-color: #1a1a1a; /* 버튼을 누를 때 배경 색상 변경 */
