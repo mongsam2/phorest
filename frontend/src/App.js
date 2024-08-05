@@ -15,10 +15,12 @@ import Main from "./routers/Main";
 import Upload from "./routers/Upload";
 import GoodsBuy from "./routers/GoodsBuy";
 import Search from "./routers/Search";
+import OneGallery from "./routers/OneGallery";
 import PostWithHashtags from "./routers/Test";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/App.css";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -43,6 +45,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
+        {/* <Route path="/oneGallery" element={<OneGallery />} /> */}
       </Routes>
     </Router>
   );
