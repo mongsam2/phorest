@@ -45,31 +45,20 @@ class Galleries(APIView):
 
     def post(self, request):
         data = request.data
-        type_name = data["type"]
         category_name = data["category"]
         hashtags = data["hashtag"].split(" ")
-
         try:
-            type = CategoryType.objects.get(name=type_name)
-        except CategoryType.DoesNotExist:
-            raise NotFound("해당 타입이 존재하지 않습니다.")
-        try:
-            category = Category.objects.get(types=type, name=category_name)
+            category = Category.objects.get(name=category_name)
         except Category.DoesNotExist:
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
         serializer = GallerySerializer(data=data)
         if serializer.is_valid():
-            if data["personal_background"] and not data["common_background"]:
-                gallery = serializer.save(category=category, type=type, is_personal_background=True, user=request.user)
-            elif data["common_background"] and not data["personal_background"]:
-                try:
-                    background = Background.objects.get(id=data["common_background"])
-                except Background.DoesNotExist:
-                    raise NotFound("입력한 id를 가진 배경사진이 존재하지 않습니다.")
-                gallery = serializer.save(category=category, type=type, is_personal_background=False, common_background=background, user=request.user)
-            else:
-                raise ParseError("기본 배경사진과 개인 배경사진 중, 하나만 입력해주세요.")
+            try:
+                background = Background.objects.get(id=data["common_background"])
+            except Background.DoesNotExist:
+                raise NotFound("입력한 id를 가진 배경사진이 존재하지 않습니다.")
+            gallery = serializer.save(category=category, is_personal_background=False, common_background=background, user=request.user)
             
             for hashtag_name in hashtags:
                 try:
@@ -112,17 +101,11 @@ class GalleryDetail(APIView):
         
         serializer = GalleryPutSerializer(gallery, data=data)
         if serializer.is_valid():
-            if data["personal_background"] and not data["common_background"]:
-                gallery.common_background=None
-                gallery = serializer.save(is_personal_background=True)
-            elif data["common_background"] and not data["personal_background"]:
-                try:
-                    background = Background.objects.get(id=data["common_background"])
-                except Background.DoesNotExist:
-                    raise NotFound("입력한 id를 가진 배경사진이 존재하지 않습니다.")
-                gallery = serializer.save(is_personal_background=False, common_background=background)
-            else:
-                raise ParseError("기본 배경사진과 개인 배경사진 중, 하나만 입력해주세요.")
+            try:
+                background = Background.objects.get(id=data["common_background"])
+            except Background.DoesNotExist:
+                raise NotFound("입력한 id를 가진 배경사진이 존재하지 않습니다.")
+            gallery = serializer.save(is_personal_background=False, common_background=background)
             return Response({"detail":"업데이트 완료"})
         else:
             return Response({"detail":serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
