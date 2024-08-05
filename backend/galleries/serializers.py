@@ -44,7 +44,7 @@ class GallerySmallSerializer(ModelSerializer):
 
     class Meta:
         model = Gallery
-        fields = ("id", "image","title", "upload_date", "profile_image")
+        fields = ("id", "image", "title", "upload_date", "profile_image")
 
     def get_image(self, gallery):
         return settings.BASE_URL + settings.MEDIA_URL + str(gallery.image)

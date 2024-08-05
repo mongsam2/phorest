@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from .serializers import GalleryListSerializer, GallerySerializer, GalleryPutSerializer, GalleryRankingSerializer
+from .serializers import GalleryListSerializer, GallerySerializer, GalleryPutSerializer, GalleryRankingSerializer, GallerySmallSerializer
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 
@@ -168,4 +168,15 @@ class GalleryLike(APIView):
             request.user.like_gallery.add(gallery)
             request.user.save()
             return Response({"like":True})
+        
+
+class GallerySearch(APIView):
+
+    def get(self, request):
+        content = request.query_params.get("content")
+        page = int(request.query_params.get("page", "1"))
+        size = 20
+        galleries = Gallery.objects.filter(title__icontains=content)[(page-1)*size:page*size]
+        serializer = GallerySmallSerializer(galleries, many=True)
+        return Response(serializer.data)
 
