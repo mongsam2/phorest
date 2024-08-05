@@ -1,22 +1,41 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropdown from '../components/Dropdown';
+import axios from 'axios';
+
 import '../styles/Search.css';
-import InputModal from '../components/InputModal';
 
 import array_drop_down from '../assets/arrow_drop_down.svg';
 import array_drop_up from '../assets/arrow_drop_up.svg';
 import search from '../assets/search.svg';
-import tune from '../assets/tune.svg';
 import favorite from '../assets/favorite.svg';
 
+const BASE_URL = "http://localhost:8000";
+
 export default function Search() {
+    const [content, setContent] = useState([]);
     const [view, setView] = useState(false);
     const [searchContent, setSearchContent] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [selectedSort, setSelectedSort] = useState('최신순'); 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const inputRef = useRef(null);
     const list = ['최신순', '추천순', '좋아요순'];
+
+    const fetchSearch = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/api/galleries/search?content=${searchContent}&page=1`);
+            if (Array.isArray(response.data)) { 
+                setContent(response.data);
+                console.log(content);
+            } else {
+                console.error("응답이 배열이 아닙니다:", response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching goods data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSearch();
+    }, [searchContent])
 
     const handleSortChange = (sortOption) => {
         setSelectedSort(sortOption);
@@ -29,22 +48,13 @@ export default function Search() {
 
     const handleSearch = () => {
         setSearchContent(inputValue);
-        setIsModalOpen(false);
     };
 
-    const handleInputClick = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleSuggestionClick = (suggestion) => {
-        setSearchContent(suggestion); 
-        setInputValue(suggestion); 
-    };
-
+    const activeEnter = (e) => {
+        if(e.key === "Enter") {
+            setSearchContent(inputValue);
+        }
+    }
     return (
         <div className='Search-wrap'>
             <div className='Search-top-box'>
@@ -56,14 +66,9 @@ export default function Search() {
                         className='Search-input' 
                         onChange={handleInput} 
                         value={inputValue} 
-                        onFocus={handleInputClick}
-                        ref={inputRef} 
+                        onKeyDown={(e) => activeEnter(e)}
                     />
                 </div>
-                <button className='Search-button'>
-                    <img src={tune} alt="" />
-                    <p style={{fontSize:'21px', marginTop : '11%'}}>필터</p>
-                </button>
             </div>
             <div className='Search-bottom-box'>
                 <div className='Search-bottom-top-rectangle'>
@@ -80,19 +85,19 @@ export default function Search() {
                 </div>
                 <div className='Search-bottom-bottom-rectangle'>
                     <div className='Search-grid'>
-                        {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(() => {
+                        {content.map((item) => {
                             return (
                                 <div className='Search-grid-box' key={Math.random()}>
                                     <button className="Search-img-box"> 
-                                        <img src={``} alt="" className="Search-search-image" />
+                                        <img src={`http://${item.image}`} alt="" className="Search-search-image" />
                                     </button>
                                     <div className='Search-description-box'>
-                                        <img src={favorite} alt="" className='Search-profile-img'></img>
+                                        <img src={`http://${item.profile_image}`} alt="" className='Search-profile-img'></img>
                                         <div className='Search-description-middle'>
-                                            <p className='Search-description-p'>닉네임</p>
+                                            <p className='Search-description-p'>{item.title}</p>
                                             <img src={favorite} alt="" className='Search-favorite-icon' />
                                         </div>
-                                        <p className='Search-count'>0</p>
+                                        <p className='Search-count'>{item.like}</p>
                                     </div>
                                 </div>
                             );
@@ -100,16 +105,6 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-            
-            <InputModal 
-    isOpen={isModalOpen} 
-    inputValue={inputValue} 
-    onClose={closeModal} 
-    suggestions={['햄스터', '산', '바다']} 
-    onSuggestionClick={handleSuggestionClick} 
-    setInputValue={setInputValue} 
-    style={{ position: 'absolute', top: `${inputRef.current ? inputRef.current.getBoundingClientRect().bottom + window.scrollY : 0}px`, left: '0' }} />
-
     </div>
     );
 }

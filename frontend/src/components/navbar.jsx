@@ -13,7 +13,7 @@ const Navbar = ({ isLoggedIn, colorTheme }) => {
   const [currentType, setCurrentType] = useState("사진");
   const [currentCategory, setCurrentCategory] = useState("");
   const isNormalTheme = colorTheme === "normal";
-
+ 
   return (
     <div
       className={styles.navbarContainer}
