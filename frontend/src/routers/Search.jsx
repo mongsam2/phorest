@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Dropdown from '../components/Dropdown';
 import axios from 'axios';
 
@@ -19,12 +20,14 @@ export default function Search() {
     const [selectedSort, setSelectedSort] = useState('최신순'); 
     const list = ['최신순', '추천순', '좋아요순'];
 
+    const navigate = useNavigate(); // useNavigate 훅 사용
+
     const fetchSearch = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/api/galleries/search?content=${searchContent}&page=1`);
             if (Array.isArray(response.data)) { 
                 setContent(response.data);
-                console.log(content);
+                console.log(response.data);
             } else {
                 console.error("응답이 배열이 아닙니다:", response.data);
             }
@@ -35,38 +38,43 @@ export default function Search() {
 
     useEffect(() => {
         fetchSearch();
-    }, [searchContent])
+    }, [searchContent]);
 
     const handleSortChange = (sortOption) => {
         setSelectedSort(sortOption);
         setView(false); 
     };
 
-    function handleInput(event) {
+    const handleInput = (event) => {
         setInputValue(event.target.value); 
-    }
+    };
 
     const handleSearch = () => {
         setSearchContent(inputValue);
     };
 
     const activeEnter = (e) => {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             setSearchContent(inputValue);
         }
-    }
+    };
+
+    const handleImageClick = (item) => {
+        navigate('/OneGallery', { state: { id: item.id } });
+    };
+
     return (
         <div className='Search-wrap'>
             <div className='Search-top-box'>
                 <div className='Search-top-input'>
                     <button className="Search-icon" onClick={handleSearch}>
-                        <img src={search} alt="" style={{width:'2.5rem'}}/> 
+                        <img src={search} alt="" style={{ width: '2.5rem' }} /> 
                     </button>
                     <input 
                         className='Search-input' 
                         onChange={handleInput} 
                         value={inputValue} 
-                        onKeyDown={(e) => activeEnter(e)}
+                        onKeyDown={activeEnter}
                     />
                 </div>
             </div>
@@ -77,7 +85,7 @@ export default function Search() {
                         <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.2rem', fontStyle: 'normal', fontWeight: '400'}}>
                             정렬 방식: <span style={{ color: '#000', fontSize: '1.2rem', fontStyle: 'normal', fontWeight: '500' }}>{selectedSort}</span>
                             {view && (
-                            <Dropdown className="Search-dropdown" onSortChange={handleSortChange} selectedSort={selectedSort} list={list} />
+                                <Dropdown className="Search-dropdown" onSortChange={handleSortChange} selectedSort={selectedSort} list={list} />
                             )}
                         </p>
                         {view ? <img src={array_drop_up} alt="dropdown up" className='Search-view-img' /> : <img src={array_drop_down} alt="dropdown down" className='Search-view-img' />}
@@ -88,7 +96,7 @@ export default function Search() {
                         {content.map((item) => {
                             return (
                                 <div className='Search-grid-box' key={Math.random()}>
-                                    <button className="Search-img-box"> 
+                                    <button className="Search-img-box" onClick={() => handleImageClick(item)}> 
                                         <img src={`http://${item.image}`} alt="" className="Search-search-image" />
                                     </button>
                                     <div className='Search-description-box'>
@@ -105,6 +113,6 @@ export default function Search() {
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     );
 }

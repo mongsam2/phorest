@@ -101,6 +101,8 @@
     width: 75%;
     position: relative;
     overflow: hidden; 
+    border-radius: 10px;
+    border: none;
 }
 
 .Search-search-image {
@@ -125,7 +127,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 13%;
+    width: 10%;
+    height: 50%;
     border-radius: 50%;
     background-color: #D9D9D9;
 }
