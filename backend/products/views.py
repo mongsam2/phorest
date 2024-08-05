@@ -13,11 +13,22 @@ from rest_framework.exceptions import NotFound
 class Products(APIView):
 
     def get(self, request):
-        category_name = request.query_params.get("category")
+        category_name = request.query_params.get("category", "전체")
         page = int(request.query_params.get("page", "1"))
         size = 10
         sort = request.query_params.get("sort", "최신순")
 
+        if category_name == "전체":
+            if sort == "최신순":
+                products = Product.objects.all().order_by("-release_date")[(page-1)*size:page*size]
+                serializer = ProductListSerializer(products, many=True)
+                return Response(serializer.data)
+
+            elif sort == "판매량순":
+                products = Product.objects.annotate(orderd=Sum("shopping_list__count")).all().order_by("-orderd")[(page-1)*size:page*size]
+                serializer = ProductListSerializer(products, many=True)
+                return Response(serializer.data)
+        
         try:
             category = Category.objects.get(name=category_name)
         except Category.DoesNotExist:
