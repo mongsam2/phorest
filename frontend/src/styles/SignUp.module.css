@@ -1,0 +1,15 @@
+.pageWrapper {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* 필요한 다른 스타일을 추가할 수 있습니다. */
+}

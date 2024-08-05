@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import Signup from "./pages/Signup";
+import SignUp from "./routers/SignUp";
 import Gallery from "./routers/Gallery";
 import Ranking from "./routers/Ranking";
 import Goods from "./routers/Goods";
@@ -41,7 +41,7 @@ function App() {
         <Route path="/goodsbuy" element={<GoodsBuy />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
       </Routes>
     </Router>

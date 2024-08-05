@@ -12,6 +12,7 @@ const HashTagInputWrapper = styled.div`
 
 const Input = styled.input`
   margin-left: 80px;
+  margin-right: 8px;
   padding: 8px;
   font-size: 16px;
   border: 2px solid #2d2d2d29;
@@ -144,7 +145,6 @@ const HashTagInput = ({ initialHashtags, onHashtagsChange }) => {
           </Tag>
         ))}
       </TagList>
-      
     </HashTagInputWrapper>
   );
 };

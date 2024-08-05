@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-wrap: wrap; /* 여러 줄로 배치 */
   width: 100%; /* 전체 너비를 사용 */
   margin: auto;
-  margin-left: 45px; /* 왼쪽 여백 조정 */
+  margin-left: 35px; /* 왼쪽 여백 조정 */
   padding: 10px 10px; /* 좌우 여백 조정 */
   box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
 `;
@@ -29,7 +29,7 @@ const RadioItem = styled.label`
   margin-bottom: 12px; /* 세로 간격 조정 */
   margin-right: 18px; /* 오른쪽 여백 조정 */
   div {
-    margin-left: 10px;
+    margin-left: 5px;
     font-family: "Noto Sans KR";
     font-size: 24px;
     font-weight: 400;
@@ -56,6 +56,15 @@ const CustomRadio = styled.span`
   }
 `;
 
+const CustomFooter = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 70px;
+  justify-content: center;
+  gap: 28px;
+`;
+
 const UploadDetailModal = (props) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [hashtags, setHashtags] = useState([]);
@@ -69,14 +78,14 @@ const UploadDetailModal = (props) => {
 
   const options = [
     { value: "반려동물", label: "반려동물" },
-    { value: "바다", label: "바다" },
     { value: "산", label: "산" },
-    { value: "캠핑", label: "캠핑" },
     { value: "계절", label: "계절" },
-    { value: "캐릭터", label: "캐릭터" },
     { value: "동물", label: "동물" },
-    { value: "사물", label: "사물" },
     { value: "기타", label: "기타" },
+    { value: "바다", label: "바다" },
+    { value: "캠핑", label: "캠핑" },
+    { value: "캐릭터", label: "캐릭터" },
+    { value: "사물", label: "사물" },
   ];
 
   return (
@@ -97,8 +106,8 @@ const UploadDetailModal = (props) => {
               lineHeight: "24px",
               letterSpacing: "-1px",
               textAlign: "left",
-              marginLeft: "30px",
-              padding: "10px",
+              marginLeft: "10px",
+              padding: "16px",
             }}
           >
             상세 정보 설정
@@ -108,7 +117,7 @@ const UploadDetailModal = (props) => {
           <p
             style={{
               marginTop: "55px",
-              marginLeft: "55px",
+              marginLeft: "40px",
               fontFamily: "Noto Sans KR",
               fontSize: "24px",
               fontWeight: "700",
@@ -147,7 +156,7 @@ const UploadDetailModal = (props) => {
           <p
             style={{
               marginTop: "70px",
-              marginLeft: "55px",
+              marginLeft: "40px",
               fontFamily: "Noto Sans KR",
               fontSize: "24px",
               fontWeight: "700",
@@ -163,9 +172,39 @@ const UploadDetailModal = (props) => {
             onHashtagsChange={handleHashtagsChange}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
+        <CustomFooter>
+          <button
+            onClick={props.onHide}
+            style={{
+              padding: "18px 104px",
+              backgroundColor: "white",
+              fontFamily: "Noto Sans KR",
+              fontSize: "16px",
+              fontWeight: "500",
+              letterSpacing: "-1px",
+              color: "black",
+              borderRadius: "10px",
+              border: "2px solid #2D2D2D",
+            }}
+          >
+            닫기
+          </button>
+          <button
+            style={{
+              padding: "18px 188px",
+              backgroundColor: "#2D2D2D",
+              border: "none",
+              fontFamily: "Noto Sans KR",
+              fontSize: "16px",
+              fontWeight: "500",
+              letterSpacing: "-1px",
+              color: "white",
+              borderRadius: "10px",
+            }}
+          >
+            업로드
+          </button>
+        </CustomFooter>
       </Modal>
     </BootstrapModalWrapper>
   );
