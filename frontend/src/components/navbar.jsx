@@ -7,6 +7,7 @@ import SearchIcon from "../assets/nav_search_icon";
 import RankingIcon from "../assets/nav_ranking_icon";
 import GoodsIcon from "../assets/nav_goods_icon";
 import ProfileImgDefault from "../assets/default_profile_image.png";
+import IconWithTooltip from "./IconWithTooltip";
 
 const Navbar = ({ isLoggedIn, colorTheme }) => {
   const [currentType, setCurrentType] = useState("사진");
@@ -16,7 +17,12 @@ const Navbar = ({ isLoggedIn, colorTheme }) => {
   return (
     <div
       className={styles.navbarContainer}
-      style={{ background: isNormalTheme ? "white" : "transparent" }}
+      style={{
+        background: isNormalTheme ? "white" : "transparent",
+        borderBottom: isNormalTheme
+          ? "2px solid #2D2D2D29"
+          : "2px solid #FFFFFF3D",
+      }}
     >
       <div className={styles.logo}>
         <Link to="/">
@@ -27,14 +33,30 @@ const Navbar = ({ isLoggedIn, colorTheme }) => {
         <div
           className={styles.typePhoto}
           onClick={() => setCurrentType("사진")}
-          style={{ color: `${isNormalTheme ? "black" : "white"}` }}
+          style={{
+            color: `${isNormalTheme ? "black" : "white"}`,
+            borderBottom:
+              currentType === "사진"
+                ? isNormalTheme
+                  ? "3px solid #000000"
+                  : "3px solid #FFFFFF"
+                : "none",
+          }}
         >
           사진
         </div>
         <div
           className={styles.typeIllustration}
           onClick={() => setCurrentType("일러스트")}
-          style={{ color: `${isNormalTheme ? "black" : "white"}` }}
+          style={{
+            color: `${isNormalTheme ? "black" : "white"}`,
+            borderBottom:
+              currentType === "일러스트"
+                ? isNormalTheme
+                  ? "3px solid #000000"
+                  : "3px solid #FFFFFF"
+                : "none",
+          }}
         >
           일러스트
         </div>
@@ -59,13 +81,25 @@ const Navbar = ({ isLoggedIn, colorTheme }) => {
       </div>
       <div className={styles.iconsBox}>
         <Link to="/search">
-          <SearchIcon color={isNormalTheme ? "black" : "white"} />
+          <IconWithTooltip
+            IconComponent={SearchIcon}
+            color={isNormalTheme ? "black" : "white"}
+            tooltipText="검색"
+          />
         </Link>
         <Link to="/ranking">
-          <RankingIcon color={isNormalTheme ? "black" : "white"} />
+          <IconWithTooltip
+            IconComponent={RankingIcon}
+            color={isNormalTheme ? "black" : "white"}
+            tooltipText="랭킹"
+          />
         </Link>
         <Link to="/goods">
-          <GoodsIcon color={isNormalTheme ? "black" : "white"} />
+          <IconWithTooltip
+            IconComponent={GoodsIcon}
+            color={isNormalTheme ? "black" : "white"}
+            tooltipText="굿즈"
+          />
         </Link>
       </div>
       <div className={styles.personalBox}>

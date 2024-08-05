@@ -13,10 +13,12 @@ const HashTagInputWrapper = styled.div`
 const Input = styled.input`
   margin-left: 80px;
   margin-right: 8px;
-  padding: 8px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-left: 16px;
   font-size: 16px;
   border: 2px solid #2d2d2d29;
-  border-radius: 4px;
+  border-radius: 10px;
   width: 100%;
   margin-bottom: 5px;
   box-sizing: border-box;
@@ -38,7 +40,7 @@ const TagList = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
-  align-items: flex-start;
+  align-items: center;
   width: 90%;
 `;
 
@@ -49,15 +51,12 @@ const Tag = styled.span`
   padding: 10px 15px 10px 15px;
   border-radius: 50px;
   margin-right: 10px;
-  margin-bottom: 5px;
   display: flex;
-  align-items: left;
+  align-items: center;
   font-family: Noto Sans KR;
   font-size: 16px;
   font-weight: 500;
-  line-height: 16px;
   letter-spacing: -1px;
-  align-items: center;
 `;
 
 const RemoveButton = styled.button`
@@ -67,6 +66,7 @@ const RemoveButton = styled.button`
   margin-left: 5px;
   cursor: pointer;
   font-size: 14px;
+  align-content: center;
 `;
 
 const HashTagInput = ({ initialHashtags, onHashtagsChange }) => {
@@ -132,14 +132,17 @@ const HashTagInput = ({ initialHashtags, onHashtagsChange }) => {
         value={input}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        placeholder="Add a hashtag"
+        placeholder=""
       />
       {error && <Error>{error}</Error>}
       <TagList>
         {hashtags.map((tag, index) => (
           <Tag key={index}>
             #{tag}
-            <RemoveButton onClick={() => removeHashtag(tag)}>
+            <RemoveButton
+              onClick={() => removeHashtag(tag)}
+              style={{ alignContent: "center" }}
+            >
               <img src={cancelButton} alt="x" />
             </RemoveButton>
           </Tag>
