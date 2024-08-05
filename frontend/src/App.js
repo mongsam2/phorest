@@ -45,7 +45,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
-        {/* <Route path="/oneGallery" element={<OneGallery />} /> */}
+        <Route path="/oneGallery" element={<OneGallery />} />
       </Routes>
     </Router>
   );
