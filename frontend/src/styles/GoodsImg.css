@@ -23,13 +23,17 @@
 }
 
 .best-goods-image {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    aspect-ratio: 2.84/ 3.13;
+    height: 124%;
+    top : -3%;
+    left : 0%;
     object-fit: cover; /* 이미지 비율 유지 및 잘림 방지 */
     border-radius: 10px;
 }
 
 .best-goods-description {
+    margin-top : 10px;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

@@ -31,9 +31,6 @@ export default function Ranking() {
   
   return (
     <div className="ranking-wrap">
-      <header></header>
-
-      <main>
         <div className="ranking-filter">
           <FilterButton 
             filterButtons={rankingFilterButtons} 
@@ -48,8 +45,6 @@ export default function Ranking() {
           <h1 className='ranking-goods-title'>베스트 굿즈</h1>
           <GoodsImg selectedCategory={selectedCategory}/>
         </div>
-      </main>
-
       <foot className="ranking-foot">
         <Foot />
       </foot>

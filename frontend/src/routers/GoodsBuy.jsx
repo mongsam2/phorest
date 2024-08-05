@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import goodsBuyplus from '../assets/goodsBuy-plus.svg';
 import goodsBuyminus from '../assets/goodsBuy-minus.svg';
-import Navbar from "../components/Navbar"
+import Navbar from "../components/navbar"
 import '../styles/GoodsBuy.css';
 
 export default function GoodsBuy() {
@@ -24,9 +24,6 @@ export default function GoodsBuy() {
 
     return (
         <div className="GoodsBuy-wrap">
-            <header className='GoodsBuy-header'>
-                <Navbar />
-            </header>
             <main className='GoodsBuy-main'>
                 <div className='GoodsBuy-left'>
                     <img src={`http://${imgSrc}`} alt="굿즈 사진" className="GoodsBuy-img" />

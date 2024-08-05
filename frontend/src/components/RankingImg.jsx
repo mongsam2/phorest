@@ -14,6 +14,7 @@ export default function RankingImg({ count }) {
             // 응답이 배열인지 확인하고 설정
             if (Array.isArray(response.data)) {
                 setRanking(response.data); // 배열로 설정
+                console.log(response.data);
             } else {
                 console.error("응답이 배열이 아닙니다:", response.data);
             }
@@ -39,9 +40,7 @@ export default function RankingImg({ count }) {
 function RankingImgBox({ index, ranking }) {
     return (
         <div className="rankingImg-box">
-            <div className="number-container">
-                <p className='best-ranking-number'>{index + 1}</p>
-            </div>
+            <div className='best-ranking-number'>{index + 1}</div>
             <div className='ranking-box-container'>
             <img src={rankingShadow} alt="" className="best-ranking-shadow" />
             <img src={`http://${ranking.image}`} alt="" className="best-ranking" />
