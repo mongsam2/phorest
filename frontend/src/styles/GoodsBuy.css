@@ -6,24 +6,30 @@
 }
 
 .GoodsBuy-main {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 92.3vh;
+    overflow: hidden;
     display: flex;
 }
 
 .GoodsBuy-left {
-    height: 100%;
+    height: 120%; 
     width: 63%;
     flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+    margin: 0; 
 }
 
 .GoodsBuy-img {
     height: 100%;
     width: 100%;
+    object-fit: cover; 
 }
-
 .GoodsBuy-right {
-    height: 100%;
+    height: 100%; 
     width: 37%;
     flex-shrink: 0;
     background: #FFF;
@@ -38,8 +44,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: -5px;
-    margin-top : 10%;
-    margin-left : 3%;
+    margin-top: 10%;
+    margin-left: 3%;
 }
 
 .GoodsBuy-producer {
@@ -56,18 +62,19 @@
     font-size: 1.8rem;
     font-style: normal;
     font-weight: 700;
-    margin-bottom : 8%;
+    margin-bottom: 8%;
     white-space: normal;
     line-height: 1.5;
-    margin-top : 0%;
+    margin-top: 0%;
 }
+
 .GoodsBuy-introduction-price {
     color: #000;
     font-size: 1.8rem;
     font-style: normal;
     font-weight: 700;
-    margin-bottom : 8%;
-    margin-top : -5%;
+    margin-bottom: 8%;
+    margin-top: -5%;
     white-space: normal;
 }
 
@@ -75,12 +82,12 @@
     width: 73%;
     height: 0px;
     flex-shrink: 0;
-    margin-top : 0%;
-    border : 1px solid rgb(0, 0, 0, 0.16);
+    margin-top: 0%;
+    border: 1px solid rgba(0, 0, 0, 0.16);
 }
 
 .GoodsBuy-countBox {
-    margin-top : 35px;
+    margin-top: 35px;
     width: 73%;
     height: 13%;
     flex-shrink: 0;
@@ -89,18 +96,19 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding : 0 3% 3% 3%;
+    padding: 0 3% 3% 3%;
 }
 
 .GoodsBuy-small-title {
-    color : #000;
+    color: #000;
     font-size: 1.3rem;
     font-style: normal;
     font-weight: 500;
 }
+
 .GoodsBuy-count {
     display: flex;
-    gap : 16px;
+    gap: 16px;
 }
 
 .plus-minus {
@@ -112,20 +120,22 @@
     justify-content: center;
     border-radius: 70%;
 }
+
 .GoodsBuy-countPrice {
-    margin-left : 137px;
+    margin-left: 137px;
     font-size: 1.3rem;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-    width : 48%;
+    width: 48%;
     text-align: right;
 }
+
 .GoodsBuy-totalPrice-box {
     width: 73%;
     display: flex;
-    margin-top : 10%;
-    margin-bottom : 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
     justify-content: space-between;
 }
 
@@ -149,7 +159,6 @@
     display: flex;
     height: 10%;
     width: 73%;
-
     justify-content: center;
     align-items: center;
     gap: 4px;

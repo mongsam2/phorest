@@ -14,7 +14,7 @@
     margin-top : 2%;
     margin-left : 4%;
     width: 95%;
-    height: 10%;
+    height: 15%;
 }
 /* .ranking-all-button {
     display: flex;
@@ -115,7 +115,8 @@
 } */
 
 .ranking-main-best {
-    height: 30%;
+    margin-top: 2%;
+    height: 100%;
     width: 100%;
 
 

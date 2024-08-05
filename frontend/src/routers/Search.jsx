@@ -84,7 +84,7 @@ export default function Search() {
                             return (
                                 <div className='Search-grid-box' key={Math.random()}>
                                     <button className="Search-img-box"> 
-                                        <img src={``} alt="" className="best-goods-image" />
+                                        <img src={``} alt="" className="Search-search-image" />
                                     </button>
                                     <div className='Search-description-box'>
                                         <img src={favorite} alt="" className='Search-profile-img'></img>
