@@ -60,6 +60,9 @@ class UserDetail(APIView):
     
     def put(self, request):
         user = request.user
+        if user.login_path == User.LoginPathChoices.NAVER:
+            request.data["nickname"] = request.data["username"]
+            request.data["username"] = user.username
         serializer = UserPutSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -135,6 +138,20 @@ class NaverLoginCallbackView(APIView):
                 "Authorization": token_info["token_type"] + " " + token_info["access_token"]
             }
             user_info_response = requests.get(user_info_url, headers=headers).json()
-            return Response(user_info_response, status=status.HTTP_200_OK)
+            user_data = user_info_response["response"]
+            if User.objects.filter(username=user_data["id"]).exists():
+                user = User.objects.get(username=user_data["id"])
+                login(request, user)
+                return Response({"detail":"login!"})
+
+            User.objects.create(
+                username=user_data["id"],
+                nickname=user_data["nickname"],
+                name=user_data["name"],
+                email=user_data["email"],
+                phone=user_data["mobile"],
+                login_path=User.LoginPathChoices.NAVER
+                )
+            return Response(user_data, status=status.HTTP_200_OK)
         else:
             return Response({"error": token_info.error}, status=status.HTTP_400_BAD_REQUEST)

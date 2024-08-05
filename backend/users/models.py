@@ -33,6 +33,7 @@ class User(AbstractUser):
         NAVER = ("naver", "네이버")
 
     name = models.CharField(max_length=20, default="---")
+    nickname = models.CharField(max_length=20, default="---")
     phone = models.CharField(max_length=13, null=True, blank=True)
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=100, null=True, blank=True)

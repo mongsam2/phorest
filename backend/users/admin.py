@@ -17,11 +17,12 @@ class UserProductAdmin(admin.ModelAdmin):
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     inlines = (LikeGalleryInline, LikeProductInline)
-    list_display = ("username", "email", "is_staff", "date_joined")
+    list_display = ("username", "nickname", "email", "is_staff", "date_joined")
     fieldsets = (
         ("기본정보", 
          {"fields": (
             "username",
+            "nickname",
             "name", 
             "password", 
             "email",

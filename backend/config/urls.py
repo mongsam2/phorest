@@ -23,7 +23,7 @@ from users import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/login/", views.UserLogin.as_view()),
-    path("naverlogin/", views.NaverLogin.as_view()),
+    path("api/naverlogin/", views.NaverLogin.as_view()),
     path('naver-login/', views.NaverLoginCallbackView.as_view()),
     path("api/logout/", views.UserLogout.as_view()),
     path('api/categories/', include("categories.urls")),

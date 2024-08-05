@@ -10,6 +10,7 @@ class UserCreateSerializer(ModelSerializer):
 
 class UserDetailSerializer(ModelSerializer):
     profile_image = SerializerMethodField()
+    username = SerializerMethodField()
 
     class Meta:
         model = User
@@ -20,9 +21,15 @@ class UserDetailSerializer(ModelSerializer):
             return settings.BASE_URL + settings.MEDIA_URL + str(user.profile_image)
         else:
             return None
+        
+    def get_username(self, user):
+        if user.login_path == User.LoginPathChoices.COMMON:
+            return user.username
+        elif user.login_path == User.LoginPathChoices.NAVER:
+            return user.nickname
 
 class UserPutSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "name", "phone","email", "address", "profile_image", "subscribed", "is_verified")
+        fields = ("username", "nickname", "name", "phone","email", "address", "profile_image", "subscribed", "is_verified")
