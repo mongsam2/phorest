@@ -12,6 +12,8 @@ function GoodsImgBox({ image, name, price }) {
         navigate('/goodsbuy', { state: { imgSrc: image, itemName: name, itemPrice: price } }); 
     };
 
+    const formattedPrice = new Intl.NumberFormat().format(price);
+
     return (
         <div>
             <button className="goodsImg-box" onClick={handleClick}> 
@@ -19,7 +21,7 @@ function GoodsImgBox({ image, name, price }) {
             </button>
             <div>
                 <p className='best-goods-description'>{name}</p>
-                <p className='best-goods-price'>{`${price}원`}</p>
+                <p className='best-goods-price'>{`${formattedPrice}원`}</p>
             </div>
         </div>
     );
@@ -40,11 +42,13 @@ export default function GoodsImg({ selectedCategory, selectedSort }) {
             selectedCategory === 'character-button' ? '캐릭터' :
             selectedCategory === 'animal-button' ? '동물' :
             selectedCategory === 'object-button' ? '사물' :
-            selectedCategory === 'etc-button' ? '기타' : '전체';
+            selectedCategory === 'etc-button' ? '기타' : '반려동물';
             console.log(category);
+            console.log(sortValue);
             const response = await axios.get(`${BASE_URL}/api/goods?category=${category}&page=1&sort=${sortValue}`);
             if (Array.isArray(response.data)) {
                 setGoods(response.data); 
+                console(response.data); 
             } else {
                 console.error("응답이 배열이 아닙니다:", response.data);
             }

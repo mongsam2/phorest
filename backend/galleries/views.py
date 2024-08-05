@@ -148,7 +148,7 @@ class GalleryRanking(APIView):
             raise NotFound("해당 카테고리가 존재하지 않습니다.")
         
         start = datetime.now().date() - timedelta(days=7)
-        galleries = Gallery.objects.annotate(likes_last_week=Count('like_users', filter=Q(usergallery__date__gte=start))).order_by("-likes_last_week")[:6]
+        galleries = Gallery.objects.annotate(likes_last_week=Count('like_users', filter=Q(usergallery__date__gte=start))).filter(type=type, category=category).order_by("-likes_last_week")[:6]
         serializer = GalleryRankingSerializer(galleries, many=True)
         return Response(serializer.data)
 

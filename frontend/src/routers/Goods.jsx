@@ -46,9 +46,6 @@ export default function Goods() {
 
     return (
         <div className='Goods-wrap'>
-            <header></header>
-
-            <main>
                 <div className="Goods-main-best">
                     <GoodsRanking count={3} />
                 </div>
@@ -60,19 +57,20 @@ export default function Goods() {
                     />
                 </div>
                 <div className='goods-sort' onClick={() => setView(!view)}>
-                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400'}}>
+                    <p style={{ color: 'rgba(45, 45, 45, 0.40)', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '400', position:'relative'}}>
                         정렬 방식: <span style={{ color: '#000', fontSize: '1.3rem', fontStyle: 'normal', fontWeight: '500' }}>{selectedSort}</span>
+                        {view ? <img src={array_drop_up} alt="dropdown up" /> : <img src={array_drop_down} alt="dropdown down" />}
+                        {view && (
+                            <Dropdown style={{position:'absolute'}}onSortChange={handleSortChange} selectedSort={selectedSort} list = {list}/>
+                        )}
                     </p>
-                    {view ? <img src={array_drop_up} alt="dropdown up" /> : <img src={array_drop_down} alt="dropdown down" />}
+                    
                 </div>
-                {view && (
-                    <Dropdown onSortChange={handleSortChange} selectedSort={selectedSort} list = {list}/>
-                )}
+                
 
                 <div className="Goods-main-goods">
                     <GoodsImg selectedCategory={selectedCategory} selectedSort={selectedSort} /> 
                 </div>
-            </main>
 
             <footer className="Goods-foot">
                 <Foot />

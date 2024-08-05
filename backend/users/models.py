@@ -33,11 +33,12 @@ class User(AbstractUser):
         NAVER = ("naver", "네이버")
 
     name = models.CharField(max_length=20, default="---")
+    nickname = models.CharField(max_length=20, default="---")
     phone = models.CharField(max_length=13, null=True, blank=True)
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=100, null=True, blank=True)
     profile_image = models.ImageField(upload_to="profile", null=True, blank=True)
-    login_path = models.CharField(max_length=6, choices=LoginPathChoices, default=LoginPathChoices.COMMON)
+    login_path = models.CharField(max_length=6, choices=LoginPathChoices.choices, default=LoginPathChoices.COMMON)
     subscribed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     like_gallery = models.ManyToManyField("galleries.Gallery", through=UserGallery, related_name="like_users")
