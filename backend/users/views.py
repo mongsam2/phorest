@@ -96,7 +96,7 @@ class NaverLogin(APIView):
         data = {
             "response_type": "code",
             "client_id": "haPvI0_b0I62nZAD5CM5",
-            "redirect_uri": "http://3.39.26.152:8000//naver-login",
+            "redirect_uri": "http://3.39.26.152:8000/naver-login",
             "state": settings.SECRET_KEY
         }
 
