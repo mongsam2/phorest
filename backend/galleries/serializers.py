@@ -61,10 +61,13 @@ class GallerySmallSerializer(ModelSerializer):
         
         
 class GallerySerializer(ModelSerializer):
-    
+    image = SerializerMethodField()
+    like = SerializerMethodField()
+    background_image = SerializerMethodField()
+
     class Meta:
         model = Gallery
-        fields = ("image", "title", "like")
+        fields = ("image", "title", "like", "background_image", "upload_date", "profile_image")
 
     def get_like(self, gallery):
         request = self.context["request"]
@@ -74,6 +77,21 @@ class GallerySerializer(ModelSerializer):
             return True
         else:
             return False
+    
+    def get_background_image(self, gallery):
+        if gallery.is_personal_background:
+            image_url = str(gallery.personal_background)
+        else:
+            image_url = str(gallery.common_background.image)
+        return settings.BASE_URL + settings.MEDIA_URL + image_url
+    
+    def get_profile_image(self, gallery):
+        if gallery.user.profile_image != None:
+            return settings.BASE_URL + settings.MEDIA_URL + str(gallery.user.profile_image)
+        else:
+            return None
+    
+    
 
 class GalleryPutSerializer(ModelSerializer):
 
