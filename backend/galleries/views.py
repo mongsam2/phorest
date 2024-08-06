@@ -159,7 +159,7 @@ class GallerySearch(APIView):
         content = request.query_params.get("content")
         page = int(request.query_params.get("page", "1"))
         size = 20
-        if not content:
+        if content=="":
             galleries = Gallery.objects.all()[(page-1)*size:page*size]
             serializer = GallerySmallSerializer(galleries, many=True)
             return Response(serializer.data)
