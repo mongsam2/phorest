@@ -52,7 +52,6 @@ class UserLogout(APIView):
         return Response({"detail":"로그아웃"})
 
 class UserDetail(APIView):
-    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         serializer = UserDetailSerializer(request.user)
