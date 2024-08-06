@@ -7,7 +7,6 @@ class GalleryListSerializer(ModelSerializer):
     image = SerializerMethodField()
     profile_image = SerializerMethodField()
     like = SerializerMethodField()
-    title = SerializerMethodField()
 
     class Meta:
         model = Gallery
@@ -38,10 +37,6 @@ class GalleryListSerializer(ModelSerializer):
         else:
             return False
         
-    def get_title(self, gallery):
-        if len(gallery.title) > 10:
-            return gallery.title[:10] + "..."
-        return gallery.title
         
 class GallerySmallSerializer(ModelSerializer):
     image = SerializerMethodField()

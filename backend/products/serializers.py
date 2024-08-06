@@ -5,6 +5,7 @@ from django.conf import settings
 class ProductListSerializer(ModelSerializer):
     image = SerializerMethodField()
     total_sales = SerializerMethodField()
+    name = SerializerMethodField()
 
     class Meta:
         model = Product
@@ -18,6 +19,11 @@ class ProductListSerializer(ModelSerializer):
         for element in product.shopping_list.all():
             total += element.count
         return total
+    
+    def get_name(self, product):
+        if len(product.name) > 10:
+            return product.name[:10] + "..."
+        return product.name
 
 class ProductDetailSerializer(ModelSerializer):
     image = SerializerMethodField()
