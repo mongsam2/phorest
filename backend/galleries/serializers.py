@@ -42,6 +42,7 @@ class GallerySmallSerializer(ModelSerializer):
     image = SerializerMethodField()
     profile_image = SerializerMethodField()
     like = SerializerMethodField()
+    title = SerializerMethodField()
 
     class Meta:
         model = Gallery
@@ -58,6 +59,11 @@ class GallerySmallSerializer(ModelSerializer):
     
     def get_like(self, gallery):
         return gallery.like_users.all().count()
+    
+    def get_title(self, product):
+        if len(product.title) > 10:
+            return product.title[:10] + "..."
+        return product.title
         
         
 class GallerySerializer(ModelSerializer):
