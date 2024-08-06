@@ -67,7 +67,6 @@ class GallerySmallSerializer(ModelSerializer):
         
         
 class GallerySerializer(ModelSerializer):
-    image = SerializerMethodField()
     like = SerializerMethodField()
     background_image = SerializerMethodField()
     profile_image = SerializerMethodField()
