@@ -85,10 +85,7 @@ class GallerySerializer(ModelSerializer):
             return False
     
     def get_background_image(self, gallery):
-        if gallery.is_personal_background:
-            image_url = str(gallery.personal_background)
-        else:
-            image_url = str(gallery.common_background.image)
+        image_url = str(gallery.common_background.image)
         return settings.BASE_URL + settings.MEDIA_URL + image_url
     
     def get_profile_image(self, gallery):
