@@ -85,7 +85,7 @@ class GalleryDetail(APIView):
 
     def get(self, request, id):
         gallery = self.get_object(id)
-        serializer = GallerySerializer(gallery)
+        serializer = GallerySerializer(gallery, context={"request":request})
         return Response(serializer.data)
 
     def put(self, request, id):
