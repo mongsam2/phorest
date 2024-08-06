@@ -37,7 +37,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=13, null=True, blank=True)
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=100, null=True, blank=True)
-    profile_image = models.ImageField(upload_to="profile", null=True, blank=True)
+    profile_image = models.ImageField(upload_to="profile/", null=True, blank=True)
     login_path = models.CharField(max_length=6, choices=LoginPathChoices.choices, default=LoginPathChoices.COMMON)
     subscribed = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
